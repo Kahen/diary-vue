@@ -14,6 +14,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'SidebarLogo',
   props: {
@@ -24,8 +25,9 @@ export default {
   },
   data() {
     return {
-      title: 'Vue Admin Template',
-      logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
+      title: '格子日记',
+      // logo: Logo
+      logo: 'https://downloads.intercomcdn.com/i/o/181026/8f9878918d57794716dbc124/06e81c53b06e793f0e042ec3f9250046.png'
     }
   }
 }
@@ -67,8 +69,8 @@ export default {
       color: #fff;
       font-weight: 600;
       line-height: 50px;
-      font-size: 14px;
-      font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
+      font-size: 20px;
+      font-family: 华文中宋, Helvetica Neue, Arial, Helvetica, sans-serif;
       vertical-align: middle;
     }
   }
