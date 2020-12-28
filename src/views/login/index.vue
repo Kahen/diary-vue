@@ -2,9 +2,9 @@
   <div class="login">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" label-position="left"
              label-width="0px">
-      <h3 class="title">
-        EL-ADMIN 后台管理系统
-      </h3>
+      <h1 class="title">
+        格 子 日 记
+      </h1>
       <el-form-item prop="username">
         <el-input v-model="loginForm.username" auto-complete="off" placeholder="账号" type="text">
           <svg-icon slot="prefix" class="el-input__icon input-icon" icon-class="user"/>
@@ -167,6 +167,7 @@
   }
 
   .title {
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
     margin: 0 auto 30px auto;
     text-align: center;
     color: #707070;
