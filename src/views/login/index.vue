@@ -40,11 +40,10 @@
 </template>
 
 <script>
-  import {encrypt} from '@/utils/rsaEncrypt'
+  import { encrypt } from '@/utils/rsaEncrypt'
   import Config from '@/settings'
-  import {getCodeImg} from '@/api/login'
+  import { getCodeImg } from '@/api/login'
   import Cookies from 'js-cookie'
-
 
   export default {
     name: 'Login',
@@ -53,8 +52,8 @@
         codeUrl: '',
         cookiePass: '',
         loginForm: {
-          username: 'admin',
-          password: '123456',
+          username: '',
+          password: '',
           rememberMe: false,
           code: '',
           uuid: ''
@@ -130,7 +129,7 @@
             }
             this.$store.dispatch('Login', user).then(() => {
               this.loading = false
-              this.$router.push({path: this.redirect || '/'})
+              this.$router.push({ path: this.redirect || '/index' })
             }).catch(() => {
               this.loading = false
               this.getCode()

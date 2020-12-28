@@ -1,30 +1,22 @@
 <template>
-  <div :class="{'has-logo':showLogo}">
-    <logo :collapse="isCollapse" v-if="showLogo"/>
-    <el-scrollbar wrap-class="scrollbar-wrapper">
-      <el-menu
-        :active-text-color="variables.menuActiveText"
-        :background-color="variables.menuBg"
-        :collapse="isCollapse"
-        :collapse-transition="false"
-        :default-active="activeMenu"
-        :text-color="variables.menuText"
-        :unique-opened="false"
-        mode="horizontal"
-      >
-        <sidebar-item :base-path="route.path" :item="route" :key="route.path" v-for="route in routes"/>
+  <el-container>
+    <el-header style="background: red">
+      <el-menu :default-active="activeMenu" @select="handleSelect" class="el-menu-demo" mode="horizontal">
+        <el-menu-item :base-path="route.path" :item="route" :key="route.path" v-for="route in routes"/>
       </el-menu>
-    </el-scrollbar>
-  </div>
+    </el-header>
+    <el-main style="background: green">main</el-main>
+    <el-footer style="background: blue">footer</el-footer>
+  </el-container>
 </template>
-
 <script>
   import { mapGetters } from 'vuex'
-  import Logo from './Sidebar/Logo'
-  import SidebarItem from './Sidebar/SidebarItem'
+  import Logo from '../layout/components/Sidebar/Logo'
+  import SidebarItem from '../layout/components/Sidebar/SidebarItem'
   import variables from '@/styles/variables.scss'
 
   export default {
+    name: 'WebSide',
     components: { SidebarItem, Logo },
     computed: {
       ...mapGetters([
@@ -52,5 +44,13 @@
         return !this.sidebar.opened
       }
     }
+
   }
 </script>
+<style>
+
+</style>
+
+
+
+

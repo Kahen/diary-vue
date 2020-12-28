@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 /* Layout */
 import Layout from '@/layout'
+import WebSide from '@/webside'
 
 Vue.use(Router)
 
@@ -41,7 +42,12 @@ export const constantRoutes = [
     component: () => import('@/views/404'),
     hidden: true
   },
-
+  {
+    path: '/index',
+    component: WebSide,
+    children: []
+  }
+  ,
   {
     path: '/',
     component: Layout,
@@ -56,7 +62,6 @@ export const constantRoutes = [
   {
     path: '/write',
     component: Layout,
-    redirect: '/index',
     children: [{
       path: 'index',
       name: 'Write',
@@ -87,18 +92,19 @@ export const constantRoutes = [
         meta: { title: '动态', icon: 'el-icon-chat-line-round' }
       }
     ]
-  }, {
-    path: '/timeline',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'TimeLine',
-        component: () => import('@/views/timeline/index'),
-        meta: { title: '时间线', icon: 'el-icon-notebook-1' }
-      }
-    ]
   },
+  // {
+  //   path: '/timeline',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       name: 'TimeLine',
+  //       component: () => import('@/views/timeline/index'),
+  //       meta: { title: '时间线', icon: 'el-icon-notebook-1' }
+  //     }
+  //   ]
+  // },
 
   // {
   //   path: '/nested',
