@@ -25,23 +25,23 @@
 </template>
 
 <script>
-import path from 'path'
-import { isExternal } from '@/utils/validate'
-import Item from './Item'
-import AppLink from './Link'
-import FixiOSBug from './FixiOSBug'
+  import path from 'path'
+  import { isExternal } from '@/utils/validate'
+  import Item from './Item'
+  import AppLink from './Link'
+  import FixiOSBug from './FixiOSBug'
 
-export default {
-  name: 'SidebarItem',
-  components: { Item, AppLink },
-  mixins: [FixiOSBug],
-  props: {
-    // route object
-    item: {
-      type: Object,
-      required: true
-    },
-    isNest: {
+  export default {
+    name: 'SidebarItem',
+    components: { Item, AppLink },
+    mixins: [FixiOSBug],
+    props: {
+      // route object
+      item: {
+        type: Object,
+        required: true
+      },
+      isNest: {
       type: Boolean,
       default: false
     },
