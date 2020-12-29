@@ -1,13 +1,25 @@
 <template>
-  <div style="width: 100%;background:#48dfcc ;display: flex">
-    <div style="width: 1080px;margin: auto;">
-      <div class="header">
-        <div class="title" style="color: #ffffff;"><img class="sidebar-logo" src="../../assets/logo.png"></div>
+  <div style="width: 100%;background:#fff ;display: flex">
+    <div style="width: 1080px;margin: auto;background:#fff    ;border-bottom: 1px solid #dcdfe6;">
+      <div class="el-menu-demo">
         <div class="sidebar">
-          <el-menu active-text-color="#E3F2DB" background-color="#48dfcc" class="custom-menu" default-active="0"
+          <div class="title">
+            <!--            <img class="sidebar-logo" src="../../assets/logo-ele.png">-->
+            <div class="svg">
+              <svg class="icon" height="100%" p-id="3057" t="1609234915375"
+                   version="1.1" viewBox="0 0 1024 1024" width="100%" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M160 160v704h704V160H160z m64 64h576v576H224V224z m128 128v320h64V352h-64z m128 0v64h192v-64h-192z m0 128v64h192v-64h-192z m0 128v64h192v-64h-192z"
+                  fill="#409eff" p-id="3058"></path>
+              </svg>
+            </div>
+            <div class="text-custom">格子日志</div>
+          </div>
+
+          <el-menu class="custom-menu" default-active="0"
                    mode="horizontal"
                    router
-                   text-color="#fff" unique-opened>
+                   unique-opened>
             <template v-for="item in items">
               <el-submenu :index="item.index" v-if="item.subs">
                 <template>
@@ -25,6 +37,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 <script>
@@ -60,16 +73,41 @@
 </script>
 <style lang="less" scoped>
   .title {
-    display: inline-block;
-    margin: 0;
+    display: flex;
     color: #fff;
-    font-weight: 600;
+    margin-right: 100px;
+    font-weight: 700;
     vertical-align: middle;
+
+    .svg {
+      width: 48px;
+      height: 48px;
+      margin: auto;
+      /*align-items: center;*/
+    }
+
+  }
+
+  .el-menu.el-menu--horizontal {
+    border-bottom: solid 0px #e6e6e6;
+  }
+
+  .text-custom {
+    margin: auto;
+    padding-left: 10px;
+    font-size: 25px;
+    color: #409eff;
+    @font-face {
+      font-family: 'webfont';
+      font-display: swap;
+      src: url('//at.alicdn.com/t/webfont_e7nx9pxmyng.eot'); /* IE9*/
+      src: url('//at.alicdn.com/t/webfont_e7nx9pxmyng.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('//at.alicdn.com/t/webfont_e7nx9pxmyng.woff2') format('woff2'),
+      url('//at.alicdn.com/t/webfont_e7nx9pxmyng.woff') format('woff'), /* chrome、firefox */ url('//at.alicdn.com/t/webfont_e7nx9pxmyng.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/ url('//at.alicdn.com/t/webfont_e7nx9pxmyng.svg#思源黑体-粗') format('svg'); /* iOS 4.1- */
+    }
   }
 
   .custom-menu {
     height: 100px;
-    margin: 1px;
   }
 
   .header {
@@ -77,12 +115,13 @@
     /*z-index: 111;*/
     /*box-sizing: border-box;*/
     width: 1080px;
-    height: 70px;
+    height: 60px;
     font-size: 26px;
-    line-height: 70px;
+    line-height: 60px;
     /*color: #999;*/
     margin: auto;
     display: flex;
+
   }
 
   .header .logo {
@@ -94,10 +133,17 @@
     margin-right: 50px;
   }
 
+  hr {
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+
   .el-menu-item {
     font-size: 18px;
+    text-align: center;
+    align-items: center;
     margin-right: 20px;
-    /*display: inline-block;*/
+    display: inline-block;
     cursor: pointer;
     height: 100%;
   }
@@ -130,13 +176,13 @@
   }
 
   .sidebar {
-    display: block;
-    /*margin-left: 250px;*/
+    display: flex;
+    margin-left: 50px;
     /*position: fixed;*/
     /*width: 250px;*/
-    /*left: 250px;*/
-    height: 70px;
-    /*bottom: 0;*/
+    left: 50px;
+    height: 60px;
+
     /*background: #2E363F;*/
   }
 

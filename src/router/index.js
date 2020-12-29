@@ -57,42 +57,59 @@ export const constantRoutes = [
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
       meta: { title: '首页', icon: 'el-icon-s-home' }
-    }]
-  },
-  {
-    path: '/write',
-    component: Layout,
-    children: [{
-      path: 'index',
+    }, {
+      path: 'write',
       name: 'Write',
       component: () => import('@/views/write/index'),
       meta: { title: '写日记', icon: 'el-icon-edit' }
-    }]
-  },
-
-  {
-    path: '/timeline',
-    component: Layout,
-    children: [
+    }, {
+      path: 'timeline',
+      name: 'TimeLine',
+      component: () => import('@/views/timeline/index'),
+      meta: { title: 'Timeline', icon: 'el-icon-notebook-1' }
+    },
       {
-        path: 'index',
-        name: 'TimeLine',
-        component: () => import('@/views/timeline/index'),
-        meta: { title: '时间线', icon: 'el-icon-notebook-1' }
-      }
-    ]
-  }, {
-    path: '/blog',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
+        path: 'blog',
         name: 'Blog',
         component: () => import('@/views/blog/index'),
-        meta: { title: '动态', icon: 'el-icon-chat-line-round' }
+        meta: { title: 'Blog', icon: 'el-icon-chat-line-round' }
       }
     ]
   },
+  // {
+  //   path: '/write',
+  //   component: Layout,
+  //   children: [{
+  //     path: 'index',
+  //     name: 'Write',
+  //     component: () => import('@/views/write/index'),
+  //     meta: { title: '写日记', icon: 'el-icon-edit' }
+  //   }]
+  // },
+
+  // {
+  //   path: '/timeline',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       name: 'TimeLine',
+  //       component: () => import('@/views/timeline/index'),
+  //       meta: { title: '时间线', icon: 'el-icon-notebook-1' }
+  //     }
+  //   ]
+  // }, {
+  //   path: '/blog',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       name: 'Blog',
+  //       component: () => import('@/views/blog/index'),
+  //       meta: { title: '动态', icon: 'el-icon-chat-line-round' }
+  //     }
+  //   ]
+  // },
   // {
   //   path: '/timeline',
   //   component: Layout,

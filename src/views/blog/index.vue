@@ -1,10 +1,10 @@
 <template>
-  <dix>blog</dix>
+  <div>blog</div>
 </template>
 
 <script>
   export default {
-    name: 'index'
+    name: 'Blog'
   }
 </script>
 

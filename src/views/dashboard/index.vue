@@ -7,9 +7,10 @@
       <div class="dashboard-text" style="width: 30%;margin: 30px;">{{getSweet()}}</div>
       <div class="el-container" style="display: flex">
         <div style="width: 100%">
-          <div style="width: 60%;margin: 30px;float: right"><p class="text-italic" style="text-align: right">
-            {{motto}}</p>
-            <p class="el-rate__text" style="text-align: right">{{author}}</p></div>
+          <div style="width: 60%;margin: 30px;float: right">
+            <p class="article" style="text-align: right">
+              {{motto}}</p>
+            <p class="author" style="text-align: right">{{author}}</p></div>
         </div>
 
       </div>
@@ -101,5 +102,17 @@
       font-size: 30px;
       line-height: 46px;
     }
+  }
+
+  .article {
+    font-style: italic;
+    font-size: 18px;
+    color: #707070;
+  }
+
+  .author {
+    font-style: normal;
+    font-size: 16px;
+    color: black;
   }
 </style>
