@@ -14,7 +14,7 @@
           <div style="width: 60%;margin: 30px;float: right">
             <p class="article" style="text-align: right">
               {{ motto }}</p>
-            <p class="author" style="text-align: right">{{ author }}</p></div>
+            <p class="author" style="text-align: right">- {{ author }}</p></div>
         </div>
 
       </div>
@@ -129,8 +129,8 @@ export default {
 }
 
 .author {
-  font-style: normal;
+  font-style: italic;
   font-size: 16px;
-  color: black;
+  color: #707070;
 }
 </style>
