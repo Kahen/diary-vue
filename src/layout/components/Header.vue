@@ -1,94 +1,55 @@
 <template>
   <div style="width: 100%;background:#fff ;display: flex;justify-content: center">
-    <div style="width: 1080px;background:#fff;display: block;position:absolute;border-bottom: 1px solid #dcdfe6;">
-      <!--      <div class="el-menu-demo">-->
-      <div class="sidebar" style="float: left">
-        <div class="title">
-          <!--            <img class="sidebar-logo" src="../../assets/logo-ele.png">-->
-          <div class="svg">
-            <svg class="icon" height="100%" p-id="3057" t="1609234915375"
-                 version="1.1" viewBox="0 0 1024 1024" width="100%" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M160 160v704h704V160H160z m64 64h576v576H224V224z m128 128v320h64V352h-64z m128 0v64h192v-64h-192z m0 128v64h192v-64h-192z m0 128v64h192v-64h-192z"
-                fill="#409eff" p-id="3058"></path>
-            </svg>
+    <div style="width: 1080px;background:#fff;display: flex;justify-content: left;border-bottom: 1px solid #dcdfe6;">
+
+      <div style="width: 100%;display: inline-block">
+        <div class="sidebar" style="float: left">
+          <div class="title">
+            <!--            <img class="sidebar-logo" src="../../assets/logo-ele.png">-->
+            <div class="svg">
+              <svg class="icon" height="100%" p-id="3057" t="1609234915375"
+                   version="1.1" viewBox="0 0 1024 1024" width="100%" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M160 160v704h704V160H160z m64 64h576v576H224V224z m128 128v320h64V352h-64z m128 0v64h192v-64h-192z m0 128v64h192v-64h-192z m0 128v64h192v-64h-192z"
+                  fill="#409eff" p-id="3058"></path>
+              </svg>
+            </div>
+            <div class="text-custom">格子日志</div>
           </div>
-          <div class="text-custom">格子日志</div>
+
+          <el-menu :default-active="this.$route.path" class="custom-menu"
+                   mode="horizontal"
+                   router
+                   unique-opened>
+            <template v-for="item in items">
+              <el-submenu :index="item.index" v-if="item.subs">
+                <template>
+                  <el-menu-item :index="subItem.index" :key="i" v-for="(subItem,i) in item.subs">
+                    <span slot="title">{{subItem.title}}</span>
+                  </el-menu-item>
+                </template>
+              </el-submenu>
+              <el-menu-item :index='item.index' :key="item.id" v-else>
+                <i :class="item.icon"></i>
+                <span slot="title">{{ item.title }}</span>
+              </el-menu-item>
+            </template>
+          </el-menu>
         </div>
 
-        <el-menu :default-active="this.$route.path" class="custom-menu"
-                 mode="horizontal"
-                 router
-                 unique-opened>
-          <template v-for="item in items">
-            <el-submenu :index="item.index" v-if="item.subs">
-              <template>
-                <el-menu-item :index="subItem.index" :key="i" v-for="(subItem,i) in item.subs">
-                  <span slot="title">{{subItem.title}}</span>
-                </el-menu-item>
-              </template>
-            </el-submenu>
-            <el-menu-item :index='item.index' :key="item.id" v-else>
-              <i :class="item.icon"></i>
-              <span slot="title">{{ item.title }}</span>
-            </el-menu-item>
-          </template>
-        </el-menu>
-      </div>
-      <!--      </div>-->
-
-      <div style="float: right">
-        <el-dropdown class="avatar-container right-menu-item hover-effect" style="float: right" trigger="click">
-          <div class="avatar-wrapper">
-            <!--          <img :src="user.avatarName ? baseApi + '/avatar/' + user.avatarName : Avatar" class="user-avatar">-->
-            <img class="user-avatar" src="https://files.catbox.moe/swpsc1.png">
-            <i class="el-icon-caret-bottom"/>
-          </div>
-          <el-dropdown-menu slot="dropdown">
-          <span @click="show = true" style="display:block;">
-            <el-dropdown-item>
-              布局设置
-            </el-dropdown-item>
-          </span>
-            <router-link to="/user/center">
-              <el-dropdown-item>
-                个人中心
-              </el-dropdown-item>
-            </router-link>
-            <span @click="open" style="display:block;">
-            <el-dropdown-item divided>
-              退出登录
-            </el-dropdown-item>
-          </span>
-          </el-dropdown-menu>
-        </el-dropdown>
+        <div style="height: 60px;width: 60px; background: #409EFF;float: right"></div>
 
       </div>
+
     </div>
+
   </div>
 </template>
 <script>
 
   export default {
-    Avatar: 'Avatar',
-    dialogVisible: false,
     computed: {},
-    methods: {
-      open() {
-        this.$confirm('确定注销并退出格子日记吗？请确认资料完整', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.logout()
-        })
-      },
-      logout() {
-        this.$store.dispatch('LogOut').then(() => {
-          location.reload()
-        })
-      }
-    },
+    methods: {},
     data() {
       return {
         name: 'Header',
@@ -277,55 +238,4 @@
     text-decoration: underline;
   }
 
-  .avatar-container {
-    margin-right: 30px;
-
-    .avatar-wrapper {
-      margin-top: 5px;
-      position: relative;
-
-      .user-avatar {
-        cursor: pointer;
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
-      }
-
-      .el-icon-caret-bottom {
-        cursor: pointer;
-        position: absolute;
-        right: -20px;
-        top: 25px;
-        font-size: 12px;
-      }
-    }
-  }
-
-  .right-menu {
-    float: right;
-    height: 100%;
-    line-height: 50px;
-
-    &:focus {
-      outline: none;
-    }
-  }
-
-  .right-menu-item {
-    display: inline-block;
-    padding: 0 8px;
-    height: 100%;
-    font-size: 18px;
-    color: #5a5e66;
-    vertical-align: text-bottom;
-
-    &.hover-effect {
-      cursor: pointer;
-      transition: background .3s;
-
-      &:hover {
-        background: rgba(0, 0, 0, .025)
-      }
-    }
-  }
 </style>
