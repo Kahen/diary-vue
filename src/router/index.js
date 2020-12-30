@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 /* Layout */
 import Layout from '@/layout'
-import WebSide from '@/webside'
+// import WebSide from '@/webside'
 
 Vue.use(Router)
 
@@ -42,11 +42,11 @@ export const constantRoutes = [
     component: () => import('@/views/404'),
     hidden: true
   },
-  {
-    path: '/index',
-    component: WebSide,
-    children: []
-  }
+  // {
+  //   path: '/index',
+  //   component: WebSide,
+  //   children: []
+  // }
   ,
   {
     path: '/',

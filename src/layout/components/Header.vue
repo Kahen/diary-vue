@@ -1,41 +1,41 @@
 <template>
-  <div style="width: 100%;background:#fff ;display: flex">
-    <div style="width: 1080px;margin: auto;background:#fff    ;border-bottom: 1px solid #dcdfe6;">
-      <div class="el-menu-demo">
-        <div class="sidebar">
-          <div class="title">
-            <!--            <img class="sidebar-logo" src="../../assets/logo-ele.png">-->
-            <div class="svg">
-              <svg class="icon" height="100%" p-id="3057" t="1609234915375"
-                   version="1.1" viewBox="0 0 1024 1024" width="100%" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M160 160v704h704V160H160z m64 64h576v576H224V224z m128 128v320h64V352h-64z m128 0v64h192v-64h-192z m0 128v64h192v-64h-192z m0 128v64h192v-64h-192z"
-                  fill="#409eff" p-id="3058"></path>
-              </svg>
-            </div>
-            <div class="text-custom">格子日志</div>
+  <div style="width: 100%;background:#fff ;display: flex;justify-content: center">
+    <div style="width: 1080px;background:#fff;display: flex;justify-content: left;border-bottom: 1px solid #dcdfe6;">
+      <!--      <div class="el-menu-demo">-->
+      <div class="sidebar">
+        <div class="title">
+          <!--            <img class="sidebar-logo" src="../../assets/logo-ele.png">-->
+          <div class="svg">
+            <svg class="icon" height="100%" p-id="3057" t="1609234915375"
+                 version="1.1" viewBox="0 0 1024 1024" width="100%" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M160 160v704h704V160H160z m64 64h576v576H224V224z m128 128v320h64V352h-64z m128 0v64h192v-64h-192z m0 128v64h192v-64h-192z m0 128v64h192v-64h-192z"
+                fill="#409eff" p-id="3058"></path>
+            </svg>
           </div>
-
-          <el-menu class="custom-menu" default-active="0"
-                   mode="horizontal"
-                   router
-                   unique-opened>
-            <template v-for="item in items">
-              <el-submenu :index="item.index" v-if="item.subs">
-                <template>
-                  <el-menu-item :index="subItem.index" :key="i" v-for="(subItem,i) in item.subs">
-                    <span slot="title">{{subItem.title}}</span>
-                  </el-menu-item>
-                </template>
-              </el-submenu>
-              <el-menu-item :index='item.index' :key="item.id" v-else>
-                <i :class="item.icon"></i>
-                <span slot="title">{{ item.title }}</span>
-              </el-menu-item>
-            </template>
-          </el-menu>
+          <div class="text-custom">格子日志</div>
         </div>
+
+        <el-menu :default-active="this.$route.path" class="custom-menu"
+                 mode="horizontal"
+                 router
+                 unique-opened>
+          <template v-for="item in items">
+            <el-submenu :index="item.index" v-if="item.subs">
+              <template>
+                <el-menu-item :index="subItem.index" :key="i" v-for="(subItem,i) in item.subs">
+                  <span slot="title">{{subItem.title}}</span>
+                </el-menu-item>
+              </template>
+            </el-submenu>
+            <el-menu-item :index='item.index' :key="item.id" v-else>
+              <i :class="item.icon"></i>
+              <span slot="title">{{ item.title }}</span>
+            </el-menu-item>
+          </template>
+        </el-menu>
       </div>
+      <!--      </div>-->
     </div>
 
   </div>
@@ -44,6 +44,7 @@
 
   export default {
     computed: {},
+    methods: {},
     data() {
       return {
         name: 'Header',
@@ -75,16 +76,20 @@
   .title {
     display: flex;
     color: #fff;
-    margin-right: 100px;
     font-weight: 700;
-    vertical-align: middle;
+    height: 100%;
+    justify-items: center;
+    justify-content: left;
 
     .svg {
       width: 48px;
-      height: 48px;
-      margin: auto;
+      height: 100%;
+      display: flex;
+      justify-items: center;
+      justify-content: center;
       /*align-items: center;*/
     }
+
 
   }
 
@@ -108,6 +113,9 @@
 
   .custom-menu {
     height: 100px;
+    padding-left: 50px;
+    display: flex;
+    justify-content: center;
   }
 
   .header {
@@ -119,7 +127,8 @@
     font-size: 26px;
     line-height: 60px;
     /*color: #999;*/
-    margin: auto;
+    justify-content: center;
+    justify-items: center;
     display: flex;
 
   }
@@ -127,8 +136,9 @@
   .header .logo {
     float: left;
     height: 100%;
-    display: inline-flex;
+    display: flex;
     align-items: center;
+    justify-content: center;
     margin-left: 50px;
     margin-right: 50px;
   }
@@ -138,14 +148,18 @@
     margin-block-end: 0;
   }
 
-  .el-menu-item {
-    font-size: 18px;
-    text-align: center;
-    align-items: center;
-    margin-right: 20px;
-    display: inline-block;
+  el-menu-item {
+    font-size: 14px;
+    color: #303133;
+    padding: 0px 0px 0px 100px;
     cursor: pointer;
-    height: 100%;
+    -webkit-transition: border-color .3s, background-color .3s, color .3s;
+    transition: border-color .3s, background-color .3s, color .3s;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    justify-content: center;
+    display: flex;
+    justify-items: center;
   }
 
 
@@ -176,12 +190,15 @@
   }
 
   .sidebar {
+    /*width: 100%;*/
     display: flex;
-    margin-left: 50px;
+    /*margin-left: 50px;*/
     /*position: fixed;*/
     /*width: 250px;*/
     left: 50px;
     height: 60px;
+    justify-content: left;
+    justify-items: center;
 
     /*background: #2E363F;*/
   }
