@@ -37,7 +37,32 @@
           </el-menu>
         </div>
 
-        <div style="height: 60px;width: 60px; background: #409EFF;float: right"></div>
+        <div style="height: 60px;width: 60px;float: right">
+          <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
+            <div class="avatar-wrapper">
+
+              <el-avatar :size="40" :src="url" fit="cover" shape="square"></el-avatar>
+              <!--              <img src="../../assets/avatar.jpg" class="user-avatar">-->
+              <i class="el-icon-caret-bottom"/>
+            </div>
+            <el-dropdown-menu slot="dropdown">
+          <span @click="show = true" style="display:block;">
+<!--            <el-dropdown-item>布局设置</el-dropdown-item>-->
+          </span>
+              <router-link to="/user/center">
+                <el-dropdown-item>
+                  个人中心
+                </el-dropdown-item>
+              </router-link>
+              <span @click="open" style="display:block;">
+            <el-dropdown-item divided>
+              退出登录
+            </el-dropdown-item>
+          </span>
+            </el-dropdown-menu>
+          </el-dropdown>
+
+        </div>
 
       </div>
 
@@ -46,13 +71,50 @@
   </div>
 </template>
 <script>
+  import { mapGetters } from 'vuex'
 
   export default {
-    computed: {},
-    methods: {},
+    ...mapGetters([
+      'sidebar',
+      'device',
+      'user'
+    ]),
+    computed: {
+      show: {
+        get() {
+          return this.$store.state.settings.showSettings
+        },
+        set(val) {
+          this.$store.dispatch('settings/changeSetting', {
+            key: 'showSettings',
+            value: val
+          })
+        }
+      }
+    },
+    methods: {
+      toggleSideBar() {
+        this.$store.dispatch('app/toggleSideBar')
+      },
+      open() {
+        this.$confirm('确定注销并退出系统吗？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.logout()
+        })
+      },
+      logout() {
+        this.$store.dispatch('LogOut').then(() => {
+          location.reload()
+        })
+      }
+    },
     data() {
       return {
         name: 'Header',
+        url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
         items: [
           {
             index: '/dashboard',
@@ -75,6 +137,7 @@
 
       }
     }
+
   }
 </script>
 <style lang="less" scoped>
@@ -238,4 +301,27 @@
     text-decoration: underline;
   }
 
+  .avatar-container {
+    margin-top: 10px;
+
+    .avatar-wrapper {
+      margin-top: 5px;
+      position: relative;
+
+      .user-avatar {
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+      }
+
+      .el-icon-caret-bottom {
+        cursor: pointer;
+        position: absolute;
+        right: -20px;
+        top: 25px;
+        font-size: 12px;
+      }
+    }
+  }
 </style>
