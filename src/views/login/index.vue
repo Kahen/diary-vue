@@ -3,7 +3,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" label-position="left"
              label-width="0px">
       <h1 class="title">
-        格 子 日 记
+        格 子 日 志
       </h1>
       <el-form-item prop="username">
         <el-input v-model="loginForm.username" auto-complete="off" placeholder="账号" type="text">
