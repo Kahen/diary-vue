@@ -26,26 +26,26 @@
           </el-col>
           <div style="width: 100%;height: 900px;display: inline-block;padding: 10px">
             <div style="width: 100%;display: flex;justify-content: center">
-              <div @click="dialogFormVisible = true" style="width: 50%;height: 300px;background: #20a0ff">{{
+              <div @click="dialogFormVisible = true" class="diary-card">{{
                 formData.field001 }}
               </div>
-              <div @click="dialogFormVisible = true" style="width: 50%;height: 300px;background: #6c5fe0">{{
+              <div @click="dialogFormVisible = true" class="diary-card">{{
                 formData.field002 }}
               </div>
             </div>
             <div style="width: 100%;display: flex;justify-content: center">
-              <div @click="dialogFormVisible = true" style="width: 50%;height: 300px;background: #55b11c">{{
+              <div @click="dialogFormVisible = true" class="diary-card">{{
                 formData.field003 }}
               </div>
-              <div @click="dialogFormVisible = true" style="width: 50%;height: 300px;background: #f5be0f">{{
+              <div @click="dialogFormVisible = true" class="diary-card">{{
                 formData.field004 }}
               </div>
             </div>
             <div style="width: 100%;display: flex;justify-content: center">
-              <div @click="dialogFormVisible = true" style="width: 50%;height: 300px;background: #20a0ff">{{
+              <div @click="dialogFormVisible = true" class="diary-card">{{
                 formData.field005 }}
               </div>
-              <div @click="dialogFormVisible = true" style="width: 50%;height: 300px;background: #ff0303">{{
+              <div @click="dialogFormVisible = true" class="diary-card">{{
                 formData.field006 }}
               </div>
             </div>
@@ -126,7 +126,7 @@
       </el-row>
     </div>
     <!-- Form -->
-    <el-button type="text" @click="dialogFormVisible = true">打开嵌套表单的 Dialog</el-button>
+    <!--    <el-button type="text" @click="dialogFormVisible = true">打开嵌套表单的 Dialog</el-button>-->
 
     <el-dialog :visible.sync="dialogFormVisible" title="日记内容">
       <el-form
@@ -299,6 +299,13 @@ export default {
 <style>
   .el-upload__tip {
     line-height: 1.2;
+  }
+
+  .diary-card {
+    width: 50%;
+    height: 300px;
+    border: solid #f0f2f1;
+    color: #b3b4b6
   }
 </style>
 
