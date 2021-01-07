@@ -20,6 +20,7 @@
                 format="yyyy-MM-dd"
                 placeholder="请选择日期选择"
                 value-format="yyyy-MM-dd"
+                @change="dateChange"
               />
             </el-form-item>
           </el-col>
@@ -228,6 +229,10 @@ export default {
   mounted() {
   },
   methods: {
+    dateChange() {
+      console.log('???')
+      console.log(this.formData.field1)
+    },
     submitForm() {
       this.$refs['elForm'].validate(valid => {
         if (!valid) return
