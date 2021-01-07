@@ -19,7 +19,7 @@
                 clearable
                 format="yyyy-MM-dd"
                 placeholder="请选择日期选择"
-                value-format="yyyy-MM-dd"
+                value-format="timestamp"
                 @change="dateChange"
               />
             </el-form-item>
