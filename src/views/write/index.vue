@@ -101,7 +101,7 @@
     <!-- Form -->
     <el-button type="text" @click="dialogFormVisible = true">打开嵌套表单的 Dialog</el-button>
 
-    <el-dialog :visible.sync="dialogFormVisible" title="收货地址">
+    <el-dialog :visible.sync="dialogFormVisible" title="日记内容">
       <el-form
         ref="elForm"
         :model="fadeFormData"
@@ -110,15 +110,6 @@
         label-width="100px"
         size="medium"
       >
-        <el-form-item label="日期选择" prop="field001">
-          <el-date-picker
-            v-model="fadeFormData.field001"
-            :style="{width: '100%'}"
-            format="yyyy-MM-dd"
-            placeholder="请选择日期选择"
-            value-format="yyyy-MM-dd"
-          />
-        </el-form-item>
         <el-form-item label="多行文本" label-width="-1px" prop="field101">
           <el-input
             v-model="fadeFormData.field101"
@@ -172,7 +163,7 @@
               </span>
             </div>
             <!--            <i class="el-icon-plus" />-->
-            <div slot="tip" class="el-upload__tip">只能上传不超过 2MB 的image/*文件</div>
+            <div class="el-upload__tip" slot="tip">只能上传不超过 9张 2MB 的image/*文件</div>
           </el-upload>
           <el-dialog :visible.sync="dialogVisible">
             <img :src="dialogImageUrl" alt="" width="100%">
@@ -198,7 +189,6 @@ export default {
       dialogVisible: false,
       disabled: false,
       fadeFormData: {
-        field001: null,
         field101: undefined,
         field201: null
       },
@@ -212,7 +202,7 @@ export default {
       dialogFormVisible: false,
       formLabelWidth: '120px',
       formData: {
-        field1: null,
+        field1: new Date(),
         field112: undefined,
         field118: undefined,
         field119: undefined,
