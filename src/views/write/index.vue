@@ -24,78 +24,104 @@
               />
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="多行文本" label-width="-1px" prop="field112">
-              <el-input
-                v-model="formData.field112"
-                :autosize="{minRows: 8, maxRows: 8}"
-                :style="{width: '100%'}"
-                placeholder="多行文本"
-                type="textarea"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="多行文本" label-width="-1px" prop="field118">
-              <el-input
-                v-model="formData.field118"
-                :autosize="{minRows: 8, maxRows: 8}"
-                :style="{width: '100%'}"
-                placeholder="多行文本"
-                type="textarea"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="多行文本" label-width="-1px" prop="field119">
-              <el-input
-                v-model="formData.field119"
-                :autosize="{minRows: 8, maxRows: 8}"
-                :style="{width: '100%'}"
-                placeholder="多行文本"
-                type="textarea"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="多行文本" label-width="-1px" prop="field120">
-              <el-input
-                v-model="formData.field120"
-                :autosize="{minRows: 8, maxRows: 8}"
-                :style="{width: '100%'}"
-                placeholder="多行文本"
-                type="textarea"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="多行文本" label-width="-1px" prop="field121">
-              <el-input
-                v-model="formData.field121"
-                :autosize="{minRows: 8, maxRows: 8}"
-                :style="{width: '100%'}"
-                placeholder="多行文本"
-                type="textarea"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="多行文本" label-width="-1px" prop="field122">
-              <el-input
-                v-model="formData.field122"
-                :autosize="{minRows: 8, maxRows: 8}"
-                :style="{width: '100%'}"
-                placeholder="多行文本"
-                type="textarea"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="24">
-            <el-form-item size="large">
-              <el-button type="primary" @click="submitForm">提交</el-button>
-              <el-button @click="resetForm">重置</el-button>
-            </el-form-item>
-          </el-col>
+          <div style="width: 100%;height: 900px;display: inline-block;padding: 10px">
+            <div style="width: 100%;display: flex;justify-content: center">
+              <div @click="dialogFormVisible = true" style="width: 50%;height: 300px;background: #20a0ff">{{
+                formData.field001 }}
+              </div>
+              <div @click="dialogFormVisible = true" style="width: 50%;height: 300px;background: #6c5fe0">{{
+                formData.field002 }}
+              </div>
+            </div>
+            <div style="width: 100%;display: flex;justify-content: center">
+              <div @click="dialogFormVisible = true" style="width: 50%;height: 300px;background: #55b11c">{{
+                formData.field003 }}
+              </div>
+              <div @click="dialogFormVisible = true" style="width: 50%;height: 300px;background: #f5be0f">{{
+                formData.field004 }}
+              </div>
+            </div>
+            <div style="width: 100%;display: flex;justify-content: center">
+              <div @click="dialogFormVisible = true" style="width: 50%;height: 300px;background: #20a0ff">{{
+                formData.field005 }}
+              </div>
+              <div @click="dialogFormVisible = true" style="width: 50%;height: 300px;background: #ff0303">{{
+                formData.field006 }}
+              </div>
+            </div>
+          </div>
+          <!--          <el-col :span="12">
+                      <el-form-item label="多行文本" label-width="-1px" prop="field112">
+                        <el-input
+                          v-model="formData.field112"
+                          :autosize="{minRows: 8, maxRows: 8}"
+                          :style="{width: '100%'}"
+                          placeholder="多行文本"
+                          type="textarea"
+                        />
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="多行文本" label-width="-1px" prop="field118">
+                        <el-input
+                          v-model="formData.field118"
+                          :autosize="{minRows: 8, maxRows: 8}"
+                          :style="{width: '100%'}"
+                          placeholder="多行文本"
+                          type="textarea"
+                        />
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="多行文本" label-width="-1px" prop="field119">
+                        <el-input
+                          v-model="formData.field119"
+                          :autosize="{minRows: 8, maxRows: 8}"
+                          :style="{width: '100%'}"
+                          placeholder="多行文本"
+                          type="textarea"
+                        />
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="多行文本" label-width="-1px" prop="field120">
+                        <el-input
+                          v-model="formData.field120"
+                          :autosize="{minRows: 8, maxRows: 8}"
+                          :style="{width: '100%'}"
+                          placeholder="多行文本"
+                          type="textarea"
+                        />
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="多行文本" label-width="-1px" prop="field121">
+                        <el-input
+                          v-model="formData.field121"
+                          :autosize="{minRows: 8, maxRows: 8}"
+                          :style="{width: '100%'}"
+                          placeholder="多行文本"
+                          type="textarea"
+                        />
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="多行文本" label-width="-1px" prop="field122">
+                        <el-input
+                          v-model="formData.field122"
+                          :autosize="{minRows: 8, maxRows: 8}"
+                          :style="{width: '100%'}"
+                          placeholder="多行文本"
+                          type="textarea"
+                        />
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="24">
+                      <el-form-item size="large">
+                        <el-button type="primary" @click="submitForm">提交</el-button>
+                        <el-button @click="resetForm">重置</el-button>
+                      </el-form-item>
+                    </el-col>-->
         </el-form>
       </el-row>
     </div>
@@ -133,7 +159,7 @@
             action="#"
             list-type="picture-card"
           >
-            <i slot="default" class="el-icon-plus"/>
+            <i class="el-icon-plus" slot="default"/>
             <div slot="file" slot-scope="{file}">
               <img
                 :src="file.url"
@@ -204,21 +230,21 @@ export default {
       formLabelWidth: '120px',
       formData: {
         field1: new Date(),
-        field112: undefined,
-        field118: undefined,
-        field119: undefined,
-        field120: undefined,
-        field121: undefined,
-        field122: undefined
+        field001: 1,
+        field002: 2,
+        field003: 3,
+        field004: 4,
+        field005: 5,
+        field006: 6
       },
       rules: {
         field1: [],
-        field112: [],
-        field118: [],
-        field119: [],
-        field120: [],
-        field121: [],
-        field122: []
+        field001: [],
+        field002: [],
+        field003: [],
+        field004: [],
+        field005: [],
+        field006: []
       }
     }
   },
@@ -230,8 +256,8 @@ export default {
   },
   methods: {
     dateChange() {
-      console.log('???')
       console.log(this.formData.field1)
+      this.formData.field001 = this.formData.field1
     },
     submitForm() {
       this.$refs['elForm'].validate(valid => {
@@ -271,8 +297,8 @@ export default {
 
 </script>
 <style>
-.el-upload__tip {
-  line-height: 1.2;
-}
+  .el-upload__tip {
+    line-height: 1.2;
+  }
 </style>
 
