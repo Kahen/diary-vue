@@ -19,34 +19,40 @@
                 clearable
                 format="yyyy-MM-dd"
                 placeholder="请选择日期选择"
-                value-format="timestamp"
+                value-format="yyyy-MM-dd"
                 @change="dateChange"
               />
             </el-form-item>
           </el-col>
           <div style="width: 100%;height: 900px;display: inline-block;padding: 10px">
             <div style="width: 100%;display: flex;justify-content: center">
-              <div @click="dialogFormVisible = true" class="diary-card">{{
-                formData.field001 }}
+              <div class="diary-card" @click="dialogFormVisible = true">{{
+                  formData.field001
+                }}
               </div>
-              <div @click="dialogFormVisible = true" class="diary-card">{{
-                formData.field002 }}
-              </div>
-            </div>
-            <div style="width: 100%;display: flex;justify-content: center">
-              <div @click="dialogFormVisible = true" class="diary-card">{{
-                formData.field003 }}
-              </div>
-              <div @click="dialogFormVisible = true" class="diary-card">{{
-                formData.field004 }}
+              <div class="diary-card" @click="dialogFormVisible = true">{{
+                  formData.field002
+                }}
               </div>
             </div>
             <div style="width: 100%;display: flex;justify-content: center">
-              <div @click="dialogFormVisible = true" class="diary-card">{{
-                formData.field005 }}
+              <div class="diary-card" @click="dialogFormVisible = true">{{
+                  formData.field003
+                }}
               </div>
-              <div @click="dialogFormVisible = true" class="diary-card">{{
-                formData.field006 }}
+              <div class="diary-card" @click="dialogFormVisible = true">{{
+                  formData.field004
+                }}
+              </div>
+            </div>
+            <div style="width: 100%;display: flex;justify-content: center">
+              <div class="diary-card" @click="dialogFormVisible = true">{{
+                  formData.field005
+                }}
+              </div>
+              <div class="diary-card" @click="dialogFormVisible = true">{{
+                  formData.field006
+                }}
               </div>
             </div>
 
@@ -160,7 +166,7 @@
             action="#"
             list-type="picture-card"
           >
-            <i class="el-icon-plus" slot="default"/>
+            <i slot="default" class="el-icon-plus"/>
             <div slot="file" slot-scope="{file}">
               <img
                 :src="file.url"
@@ -191,7 +197,7 @@
               </span>
             </div>
             <!--            <i class="el-icon-plus" />-->
-            <div class="el-upload__tip" slot="tip">只能上传不超过 9张 2MB 的image/*文件</div>
+            <div slot="tip" class="el-upload__tip">只能上传不超过 9张 2MB 的image/*文件</div>
           </el-upload>
           <el-dialog :visible.sync="dialogVisible">
             <img :src="dialogImageUrl" alt="" width="100%">
@@ -207,6 +213,8 @@
   </div>
 </template>
 <script>
+import Diary from '@/api/blog/diary'
+
 export default {
   name: 'Write',
   components: {},
@@ -252,10 +260,18 @@ export default {
   computed: {},
   watch: {},
   created() {
+    this.getDiary()
   },
   mounted() {
   },
   methods: {
+    getDiary() {
+      Diary.get().then(
+        res => {
+          console.log(res)
+        }
+      )
+    },
     dateChange() {
       console.log(this.formData.field1)
       this.formData.field001 = this.formData.field1

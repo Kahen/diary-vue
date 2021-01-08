@@ -1,5 +1,13 @@
 import request from '@/utils/request'
 
+export function get(data) {
+  return request({
+    url: 'api/diary',
+    method: 'get',
+    data
+  })
+}
+
 export function add(data) {
   return request({
     url: 'api/diary',
@@ -24,4 +32,4 @@ export function edit(data) {
   })
 }
 
-export default { add, edit, del }
+export default { get, add, edit, del }
