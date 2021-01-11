@@ -72,6 +72,7 @@
 </template>
 <script>
   import { mapGetters } from 'vuex'
+  import user from '@/store/modules/user'
 
   export default {
     ...mapGetters([
@@ -97,6 +98,7 @@
         this.$store.dispatch('app/toggleSideBar')
       },
       open() {
+        console.log(user)
         this.$confirm('确定注销并退出系统吗？', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',

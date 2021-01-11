@@ -32,4 +32,14 @@ export function edit(data) {
   })
 }
 
-export default { get, add, edit, del }
+export function findOne(userId, time) {
+  return request({
+    url: 'api/diary/' + time,
+    params: {
+      userId: userId
+    },
+    method: 'get'
+  })
+}
+
+export default { findOne, get, add, edit, del }

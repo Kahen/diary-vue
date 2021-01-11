@@ -27,31 +27,31 @@
           <div style="width: 100%;height: 900px;display: inline-block;padding: 10px">
             <div style="width: 100%;display: flex;justify-content: center">
               <div class="diary-card" @click="dialogFormVisible = true">{{
-                  formData.field001
+                formData.field001
                 }}
               </div>
               <div class="diary-card" @click="dialogFormVisible = true">{{
-                  formData.field002
-                }}
-              </div>
-            </div>
-            <div style="width: 100%;display: flex;justify-content: center">
-              <div class="diary-card" @click="dialogFormVisible = true">{{
-                  formData.field003
-                }}
-              </div>
-              <div class="diary-card" @click="dialogFormVisible = true">{{
-                  formData.field004
+                formData.field002
                 }}
               </div>
             </div>
             <div style="width: 100%;display: flex;justify-content: center">
               <div class="diary-card" @click="dialogFormVisible = true">{{
-                  formData.field005
+                formData.field003
                 }}
               </div>
               <div class="diary-card" @click="dialogFormVisible = true">{{
-                  formData.field006
+                formData.field004
+                }}
+              </div>
+            </div>
+            <div style="width: 100%;display: flex;justify-content: center">
+              <div class="diary-card" @click="dialogFormVisible = true">{{
+                formData.field005
+                }}
+              </div>
+              <div class="diary-card" @click="dialogFormVisible = true">{{
+                formData.field006
                 }}
               </div>
             </div>
@@ -166,7 +166,7 @@
             action="#"
             list-type="picture-card"
           >
-            <i slot="default" class="el-icon-plus"/>
+            <i class="el-icon-plus" slot="default"/>
             <div slot="file" slot-scope="{file}">
               <img
                 :src="file.url"
@@ -213,24 +213,27 @@
   </div>
 </template>
 <script>
-import Diary from '@/api/blog/diary'
+  import Diary from '@/api/blog/diary'
+  import user from '@/store/modules/user'
 
-export default {
-  name: 'Write',
-  components: {},
-  props: [],
-  data() {
-    return {
-      dialogImageUrl: '',
-      dialogVisible: false,
-      disabled: false,
-      fadeFormData: {
-        field101: undefined,
-        field201: null
-      },
-      fadeRules: {
-        field001: [],
-        field101: []
+  export default {
+    name: 'Write',
+    components: {},
+    props: [],
+    data() {
+      return {
+        privateState: {},
+        sharedState: user.state,
+        dialogImageUrl: '',
+        dialogVisible: false,
+        disabled: false,
+        fadeFormData: {
+          field101: undefined,
+          field201: null
+        },
+        fadeRules: {
+          field001: [],
+          field101: []
       },
       field201Action: 'https://jsonplaceholder.typicode.com/posts/',
       field201fileList: [],
@@ -266,14 +269,31 @@ export default {
   },
   methods: {
     getDiary() {
-      Diary.get().then(
+      let date1
+      if (this.field1 !== undefined) {
+        date1 = this.field1
+      } else {
+        const date = new Date()
+        const year = date.getFullYear()
+        /* 在日期格式中，月份是从0开始的，因此要加0
+         * 使用三元表达式在小于10的前面加0，以达到格式统一  如 09:11:05
+         * */
+        const month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
+        const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
+
+        // 拼接
+        date1 = year + '-' + month + '-' + day
+      }
+      console.log(this.$store.state.user.user.uid)
+      Diary.findOne(this.$store.state.user.user.uid, date1).then(
         res => {
-          console.log(res)
+          // console.log(new Date().toLocaleString())
+          // console.log(this.$store.state.user.user.uid)
+          // console.log(res)
         }
       )
     },
     dateChange() {
-      console.log(this.formData.field1)
       this.formData.field001 = this.formData.field1
     },
     submitForm() {

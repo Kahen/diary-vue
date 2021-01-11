@@ -1,5 +1,5 @@
-import {getInfo, login, logout} from '@/api/login'
-import {getToken, removeToken, setToken} from '@/utils/auth'
+import { getInfo, login, logout } from '@/api/login'
+import { getToken, removeToken, setToken } from '@/utils/auth'
 
 const user = {
   state: {
@@ -7,10 +7,19 @@ const user = {
     user: {},
     roles: [],
     // 第一次加载菜单时用到
-    loadMenus: false
+    loadMenus: false,
+    message: 'Hello!'
   },
-
+  setMessageAction(newValue) {
+    if (this.debug) console.log('setMessageAction triggered with', newValue)
+    this.state.message = newValue
+  },
+  clearMessageAction() {
+    if (this.debug) console.log('clearMessageAction triggered')
+    this.state.message = ''
+  },
   mutations: {
+
     SET_TOKEN: (state, token) => {
       state.token = token
     },
@@ -27,7 +36,7 @@ const user = {
 
   actions: {
     // 登录
-    Login({commit}, userInfo) {
+    Login({ commit }, userInfo) {
       const rememberMe = userInfo.rememberMe
       return new Promise((resolve, reject) => {
         login(userInfo.username, userInfo.password, userInfo.code, userInfo.uuid).then(res => {
@@ -44,7 +53,7 @@ const user = {
     },
 
     // 获取用户信息
-    GetInfo({commit}) {
+    GetInfo({ commit }) {
       return new Promise((resolve, reject) => {
         getInfo().then(res => {
           setUserInfo(res, commit)
@@ -55,7 +64,7 @@ const user = {
       })
     },
     // 登出
-    LogOut({commit}) {
+    LogOut({ commit }) {
       return new Promise((resolve, reject) => {
         logout().then(res => {
           logOut(commit)
@@ -67,7 +76,7 @@ const user = {
       })
     },
 
-    updateLoadMenus({commit}) {
+    updateLoadMenus({ commit }) {
       return new Promise((resolve, reject) => {
         commit('SET_LOAD_MENUS', false)
       })
