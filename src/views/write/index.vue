@@ -26,33 +26,27 @@
           </el-col>
           <div style="width: 100%;height: 900px;display: inline-block;padding: 10px">
             <div style="width: 100%;display: flex;justify-content: center">
-              <div class="diary-card" @click="dialogFormVisible = true">{{
-                formData.field001
-                }}
+              <div @click="dialogFormVisible = true" class="diary-card">
+                <div style="margin: 15px">{{ formData.field001 }}</div>
               </div>
-              <div class="diary-card" @click="dialogFormVisible = true">{{
-                formData.field002
-                }}
+              <div @click="dialogFormVisible = true" class="diary-card">
+                <div style="margin: 15px">{{ formData.field002 }}</div>
               </div>
             </div>
             <div style="width: 100%;display: flex;justify-content: center">
-              <div class="diary-card" @click="dialogFormVisible = true">{{
-                formData.field003
-                }}
+              <div @click="dialogFormVisible = true" class="diary-card">
+                <div style="margin: 15px">{{ formData.field003 }}</div>
               </div>
-              <div class="diary-card" @click="dialogFormVisible = true">{{
-                formData.field004
-                }}
+              <div @click="dialogFormVisible = true" class="diary-card">
+                <div style="margin: 15px">{{ formData.field004 }}</div>
               </div>
             </div>
             <div style="width: 100%;display: flex;justify-content: center">
-              <div class="diary-card" @click="dialogFormVisible = true">{{
-                formData.field005
-                }}
+              <div @click="dialogFormVisible = true" class="diary-card">
+                <div style="margin: 15px">{{ formData.field005 }}</div>
               </div>
-              <div class="diary-card" @click="dialogFormVisible = true">{{
-                formData.field006
-                }}
+              <div @click="dialogFormVisible = true" class="diary-card">
+                <div style="margin: 15px">{{ formData.field006 }}</div>
               </div>
             </div>
 
@@ -244,16 +238,16 @@
           field1: new Date(),
           field001: 1,
           field002: 2,
-        field003: 3,
-        field004: 4,
-        field005: 5,
-        field006: 6
-      },
-      rules: {
-        field1: [],
-        field001: [],
-        field002: [],
-        field003: [],
+          field003: 3,
+          field004: 4,
+          field005: 5,
+          field006: 6
+        },
+        rules: {
+          field1: [],
+          field001: [],
+          field002: [],
+          field003: [],
         field004: [],
         field005: [],
         field006: []
@@ -268,11 +262,8 @@
   mounted() {
   },
   methods: {
-    getDiary() {
-      let date1
-      if (this.field1 !== undefined) {
-        date1 = this.field1
-      } else {
+    getDiary(date1) {
+      if (date1 === undefined) {
         const date = new Date()
         const year = date.getFullYear()
         /* 在日期格式中，月份是从0开始的，因此要加0
@@ -286,14 +277,17 @@
       }
       Diary.findOne(date1).then(
         res => {
-          // console.log(new Date().toLocaleString())
-          // console.log(this.$store.state.user.user.uid)
-          // console.log(res)
+          this.formData.field001 = res.guide1
+          this.formData.field002 = res.guide2
+          this.formData.field003 = res.guide3
+          this.formData.field004 = res.guide4
+          this.formData.field005 = res.guide5
+          this.formData.field006 = res.guide6
         }
       )
     },
     dateChange() {
-      this.formData.field001 = this.formData.field1
+      this.getDiary(this.formData.field1)
     },
     submitForm() {
       this.$refs['elForm'].validate(valid => {
@@ -341,7 +335,10 @@
     width: 50%;
     height: 300px;
     border: solid #f0f2f1;
-    color: #b3b4b6
+    color: #b3b4b6;
+    font-size: 14px;
+    font-weight: 800;
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   }
 </style>
 
