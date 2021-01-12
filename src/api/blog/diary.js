@@ -32,12 +32,9 @@ export function edit(data) {
   })
 }
 
-export function findOne(userId, time) {
+export function findOne(time) {
   return request({
     url: 'api/diary/' + time,
-    params: {
-      userId: userId
-    },
     method: 'get'
   })
 }

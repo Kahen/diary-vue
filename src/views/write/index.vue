@@ -234,16 +234,16 @@
         fadeRules: {
           field001: [],
           field101: []
-      },
-      field201Action: 'https://jsonplaceholder.typicode.com/posts/',
-      field201fileList: [],
-      dialogTableVisible: false,
-      dialogFormVisible: false,
-      formLabelWidth: '120px',
-      formData: {
-        field1: new Date(),
-        field001: 1,
-        field002: 2,
+        },
+        field201Action: 'https://jsonplaceholder.typicode.com/posts/',
+        field201fileList: [],
+        dialogTableVisible: false,
+        dialogFormVisible: false,
+        formLabelWidth: '120px',
+        formData: {
+          field1: new Date(),
+          field001: 1,
+          field002: 2,
         field003: 3,
         field004: 4,
         field005: 5,
@@ -284,8 +284,7 @@
         // 拼接
         date1 = year + '-' + month + '-' + day
       }
-      console.log(this.$store.state.user.user.uid)
-      Diary.findOne(this.$store.state.user.user.uid, date1).then(
+      Diary.findOne(date1).then(
         res => {
           // console.log(new Date().toLocaleString())
           // console.log(this.$store.state.user.user.uid)
