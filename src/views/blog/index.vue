@@ -78,4 +78,12 @@ export default {
   .box-card {
     width: 480px;
   }
+
+  .infinite-list-wrapper::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    -webkit-appearance: none;
+    background: transparent;
+  }
 </style>
