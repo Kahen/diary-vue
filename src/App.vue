@@ -10,7 +10,7 @@
   }
 </script>
 <style>
-  #app {
-    overflow-y: hidden;
-  }
+  /*#app {*/
+  /*  overflow-y: hidden;*/
+  /*}*/
 </style>
