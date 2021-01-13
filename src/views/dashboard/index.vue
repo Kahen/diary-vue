@@ -4,14 +4,14 @@
     <!--    <div class="dashboard-text">今天过得怎么样？</div>-->
 
     <div class="el-container" style="display: inline-block;width: 100%">
-      <div class="dashboard-text" style="float: left; width: 30%;margin: 30px;">
+      <div class="dashboard-text" style="float: left; width: 30%;margin: 10px;">
         <p style="font-size: large;font-weight: 500">{{ getLocalDate() }}</p>
         {{ getSweet() }}
       </div>
 
       <div class="el-container" style="width:50%;float:right;display: flex;justify-content: right">
         <div style="width: 100%">
-          <div style="width: 60%;margin: 30px;float: right">
+          <div style="width: 60%;margin: 10px;float: right">
             <p class="article" style="text-align: right">
               {{ motto }}</p>
             <p class="author" style="text-align: right">- {{ author }}</p></div>
@@ -24,20 +24,20 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import { findAll } from '@/api/dashboard'
+  import { mapGetters } from 'vuex'
+  import { findAll } from '@/api/dashboard'
 
-export default {
-  name: 'Dashboard',
-  computed: {
-    ...mapGetters([
-      'name'
-    ])
-  },
-  // eslint-disable-next-line vue/order-in-components
-  data() {
-    return {
-      motto: '',
+  export default {
+    name: 'Dashboard',
+    computed: {
+      ...mapGetters([
+        'name'
+      ])
+    },
+    // eslint-disable-next-line vue/order-in-components
+    data() {
+      return {
+        motto: '',
       author: '',
       value: new Date()
     }
