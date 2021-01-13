@@ -209,26 +209,28 @@
     watch: {},
     created() {
       this.getDiary()
-  },
-  mounted() {
-  },
-  methods: {
-    openContent(index) {
-      this.diaryContentIndex = index
-      this.dialogFormVisible = true
     },
-    uploadFrom() {
-      if (this.diary.id === null) {
-        switch (this.diaryContentIndex) {
-          case 1:
-            this.diary.content1 = this.fadeFormData.field101
-            this.createDiary()
-            break
-          case 2:
-            this.diary.content2 = this.fadeFormData.field101
-            this.createDiary()
-            break
-          case 3:
+    mounted() {
+    },
+    methods: {
+      openContent(index) {
+        this.diaryContentIndex = index
+        this.dialogFormVisible = true
+      },
+      uploadFrom() {
+        if (this.diary.id === null) {
+          console.log('xinjian')
+          console.log(this.diary)
+          switch (this.diaryContentIndex) {
+            case 1:
+              this.diary.content1 = this.fadeFormData.field101
+              this.createDiary()
+              break
+            case 2:
+              this.diary.content2 = this.fadeFormData.field101
+              this.createDiary()
+              break
+            case 3:
             this.diary.content3 = this.fadeFormData.field101
             this.createDiary()
             break
@@ -245,15 +247,19 @@
             this.createDiary()
             break
         }
-
-        console.log('新建日记')
       } else {
         console.log('更新日记')
       }
-      this.dialogFormVisible = false
+        this.fadeFormData.field101 = undefined
+        this.dialogFormVisible = false
     },
     createDiary() {
-      console.log(this.diary)
+      this.diary.period = 'daily'
+      this.diary.dayTimestamp = this.formData.field1
+      console.log(this.formData.field1)
+      Diary.add(this.diary).then(res => {
+        this.diary = res
+      })
     },
     updateDiary() {
 
@@ -274,6 +280,7 @@
 
         // 拼接
         date1 = year + '-' + month + '-' + day
+        this.formData.field1 = date1
       }
       Diary.findOne(date1).then(
         res => {
