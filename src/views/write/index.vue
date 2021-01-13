@@ -26,103 +26,31 @@
           </el-col>
           <div style="width: 100%;height: 900px;display: inline-block;padding: 10px">
             <div style="width: 100%;display: flex;justify-content: center">
-              <div @click="dialogFormVisible = true" class="diary-card">
+              <div @click="openContent(1)" class="diary-card">
                 <div style="margin: 15px">{{ formData.field001 }}</div>
               </div>
-              <div @click="dialogFormVisible = true" class="diary-card">
+              <div @click="openContent(2)" class="diary-card">
                 <div style="margin: 15px">{{ formData.field002 }}</div>
               </div>
             </div>
             <div style="width: 100%;display: flex;justify-content: center">
-              <div @click="dialogFormVisible = true" class="diary-card">
+              <div @click="openContent(3)" class="diary-card">
                 <div style="margin: 15px">{{ formData.field003 }}</div>
               </div>
-              <div @click="dialogFormVisible = true" class="diary-card">
+              <div @click="openContent(4)" class="diary-card">
                 <div style="margin: 15px">{{ formData.field004 }}</div>
               </div>
             </div>
             <div style="width: 100%;display: flex;justify-content: center">
-              <div @click="dialogFormVisible = true" class="diary-card">
+              <div @click="openContent(5)" class="diary-card">
                 <div style="margin: 15px">{{ formData.field005 }}</div>
               </div>
-              <div @click="dialogFormVisible = true" class="diary-card">
+              <div @click="openContent(6)" class="diary-card">
                 <div style="margin: 15px">{{ formData.field006 }}</div>
               </div>
             </div>
 
           </div>
-          <!--          <el-col :span="12">
-                      <el-form-item label="多行文本" label-width="-1px" prop="field112">
-                        <el-input
-                          v-model="formData.field112"
-                          :autosize="{minRows: 8, maxRows: 8}"
-                          :style="{width: '100%'}"
-                          placeholder="多行文本"
-                          type="textarea"
-                        />
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                      <el-form-item label="多行文本" label-width="-1px" prop="field118">
-                        <el-input
-                          v-model="formData.field118"
-                          :autosize="{minRows: 8, maxRows: 8}"
-                          :style="{width: '100%'}"
-                          placeholder="多行文本"
-                          type="textarea"
-                        />
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                      <el-form-item label="多行文本" label-width="-1px" prop="field119">
-                        <el-input
-                          v-model="formData.field119"
-                          :autosize="{minRows: 8, maxRows: 8}"
-                          :style="{width: '100%'}"
-                          placeholder="多行文本"
-                          type="textarea"
-                        />
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                      <el-form-item label="多行文本" label-width="-1px" prop="field120">
-                        <el-input
-                          v-model="formData.field120"
-                          :autosize="{minRows: 8, maxRows: 8}"
-                          :style="{width: '100%'}"
-                          placeholder="多行文本"
-                          type="textarea"
-                        />
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                      <el-form-item label="多行文本" label-width="-1px" prop="field121">
-                        <el-input
-                          v-model="formData.field121"
-                          :autosize="{minRows: 8, maxRows: 8}"
-                          :style="{width: '100%'}"
-                          placeholder="多行文本"
-                          type="textarea"
-                        />
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                      <el-form-item label="多行文本" label-width="-1px" prop="field122">
-                        <el-input
-                          v-model="formData.field122"
-                          :autosize="{minRows: 8, maxRows: 8}"
-                          :style="{width: '100%'}"
-                          placeholder="多行文本"
-                          type="textarea"
-                        />
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="24">
-                      <el-form-item size="large">
-                        <el-button type="primary" @click="submitForm">提交</el-button>
-                        <el-button @click="resetForm">重置</el-button>
-                      </el-form-item>
-                    </el-col>-->
         </el-form>
       </el-row>
     </div>
@@ -153,7 +81,7 @@
 
           <el-upload
             :auto-upload="false"
-            :limit="9"
+            :limit="1"
             :multiple="true"
             :on-exceed="overLimit"
             accept="image/*"
@@ -191,7 +119,7 @@
               </span>
             </div>
             <!--            <i class="el-icon-plus" />-->
-            <div slot="tip" class="el-upload__tip">只能上传不超过 9张 2MB 的image/*文件</div>
+            <div class="el-upload__tip" slot="tip">只能上传1张不超过 2MB 的image/*文件</div>
           </el-upload>
           <el-dialog :visible.sync="dialogVisible">
             <img :src="dialogImageUrl" alt="" width="100%">
@@ -200,8 +128,8 @@
       </el-form>
 
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+        <el-button @click="cancelForm()">取 消</el-button>
+        <el-button @click="uploadFrom()" type="primary">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -216,6 +144,29 @@
     props: [],
     data() {
       return {
+        diary: {
+          content1: undefined,
+          content2: undefined,
+          content3: undefined,
+          content4: undefined,
+          content5: undefined,
+          content6: undefined,
+          createdDate: undefined,
+          dayTimestamp: undefined,
+          guide1: undefined,
+          guide2: undefined,
+          guide3: undefined,
+          guide4: undefined,
+          guide5: undefined,
+          guide6: undefined,
+          id: undefined,
+          mood: undefined,
+          period: undefined,
+          tag: undefined,
+          updatedDate: undefined,
+          userId: undefined
+        },
+        diaryContentIndex: undefined,
         privateState: {},
         sharedState: user.state,
         dialogImageUrl: '',
@@ -248,20 +199,69 @@
           field001: [],
           field002: [],
           field003: [],
-        field004: [],
-        field005: [],
-        field006: []
+          field004: [],
+          field005: [],
+          field006: []
+        }
       }
-    }
-  },
-  computed: {},
-  watch: {},
-  created() {
-    this.getDiary()
+    },
+    computed: {},
+    watch: {},
+    created() {
+      this.getDiary()
   },
   mounted() {
   },
   methods: {
+    openContent(index) {
+      this.diaryContentIndex = index
+      this.dialogFormVisible = true
+    },
+    uploadFrom() {
+      if (this.diary.id === null) {
+        switch (this.diaryContentIndex) {
+          case 1:
+            this.diary.content1 = this.fadeFormData.field101
+            this.createDiary()
+            break
+          case 2:
+            this.diary.content2 = this.fadeFormData.field101
+            this.createDiary()
+            break
+          case 3:
+            this.diary.content3 = this.fadeFormData.field101
+            this.createDiary()
+            break
+          case 4:
+            this.diary.content4 = this.fadeFormData.field101
+            this.createDiary()
+            break
+          case 5:
+            this.diary.content5 = this.fadeFormData.field101
+            this.createDiary()
+            break
+          case 6:
+            this.diary.content6 = this.fadeFormData.field101
+            this.createDiary()
+            break
+        }
+
+        console.log('新建日记')
+      } else {
+        console.log('更新日记')
+      }
+      this.dialogFormVisible = false
+    },
+    createDiary() {
+      console.log(this.diary)
+    },
+    updateDiary() {
+
+    },
+    cancelForm() {
+      this.dialogFormVisible = false
+      this.diaryContentIndex = undefined
+    },
     getDiary(date1) {
       if (date1 === undefined) {
         const date = new Date()
@@ -283,20 +283,12 @@
           this.formData.field004 = res.guide4
           this.formData.field005 = res.guide5
           this.formData.field006 = res.guide6
+          this.diary = res
         }
       )
     },
     dateChange() {
       this.getDiary(this.formData.field1)
-    },
-    submitForm() {
-      this.$refs['elForm'].validate(valid => {
-        if (!valid) return
-        // TODO 提交表单
-      })
-    },
-    resetForm() {
-      this.$refs['elForm'].resetFields()
     },
     field201BeforeUpload(file) {
       const isRightSize = file.size / 1024 / 1024 < 2
