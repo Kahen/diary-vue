@@ -27,26 +27,26 @@
           <div style="width: 100%;height: 900px;display: inline-block;padding: 10px">
             <div style="width: 100%;display: flex;justify-content: center">
               <div @click="openContent(1)" class="diary-card">
-                <div style="margin: 15px">{{ formData.field001 }}</div>
+                <div style="margin: 15px">{{ formData.field001 }}<p>{{this.diary.content1}}</p></div>
               </div>
               <div @click="openContent(2)" class="diary-card">
-                <div style="margin: 15px">{{ formData.field002 }}</div>
+                <div style="margin: 15px">{{ formData.field002 }}<p>{{this.diary.content2}}</p></div>
               </div>
             </div>
             <div style="width: 100%;display: flex;justify-content: center">
               <div @click="openContent(3)" class="diary-card">
-                <div style="margin: 15px">{{ formData.field003 }}</div>
+                <div style="margin: 15px">{{ formData.field003 }}<p>{{this.diary.content3}}</p></div>
               </div>
               <div @click="openContent(4)" class="diary-card">
-                <div style="margin: 15px">{{ formData.field004 }}</div>
+                <div style="margin: 15px">{{ formData.field004 }}<p>{{this.diary.content4}}</p></div>
               </div>
             </div>
             <div style="width: 100%;display: flex;justify-content: center">
               <div @click="openContent(5)" class="diary-card">
-                <div style="margin: 15px">{{ formData.field005 }}</div>
+                <div style="margin: 15px">{{ formData.field005 }}<p>{{this.diary.content5}}</p></div>
               </div>
               <div @click="openContent(6)" class="diary-card">
-                <div style="margin: 15px">{{ formData.field006 }}</div>
+                <div style="margin: 15px">{{ formData.field006 }}<p>{{this.diary.content6}}</p></div>
               </div>
             </div>
 
