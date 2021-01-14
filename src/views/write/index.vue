@@ -231,16 +231,16 @@
               this.createDiary()
               break
             case 3:
-            this.diary.content3 = this.fadeFormData.field101
-            this.createDiary()
-            break
-          case 4:
-            this.diary.content4 = this.fadeFormData.field101
-            this.createDiary()
-            break
-          case 5:
-            this.diary.content5 = this.fadeFormData.field101
-            this.createDiary()
+              this.diary.content3 = this.fadeFormData.field101
+              this.createDiary()
+              break
+            case 4:
+              this.diary.content4 = this.fadeFormData.field101
+              this.createDiary()
+              break
+            case 5:
+              this.diary.content5 = this.fadeFormData.field101
+              this.createDiary()
             break
           case 6:
             this.diary.content6 = this.fadeFormData.field101
@@ -248,10 +248,36 @@
             break
         }
       } else {
-        console.log('更新日记')
-      }
-        this.fadeFormData.field101 = undefined
-        this.dialogFormVisible = false
+          console.log(this.diary)
+          switch (this.diaryContentIndex) {
+            case 1:
+              this.diary.content1 = this.fadeFormData.field101
+              this.updateDiary()
+              break
+            case 2:
+              this.diary.content2 = this.fadeFormData.field101
+              this.updateDiary()
+              break
+            case 3:
+              this.diary.content3 = this.fadeFormData.field101
+              this.updateDiary()
+              break
+            case 4:
+              this.diary.content4 = this.fadeFormData.field101
+              this.updateDiary()
+              break
+            case 5:
+              this.diary.content5 = this.fadeFormData.field101
+              this.updateDiary()
+              break
+            case 6:
+              this.diary.content6 = this.fadeFormData.field101
+              this.updateDiary()
+              break
+          }
+          this.fadeFormData.field101 = undefined
+          this.dialogFormVisible = false
+        }
     },
     createDiary() {
       this.diary.period = 'daily'
@@ -262,7 +288,10 @@
       })
     },
     updateDiary() {
-
+      this.diary.dayTimestamp = this.formData.field1
+      Diary.edit(this.diary).then(res => {
+        // this.diary = res
+      })
     },
     cancelForm() {
       this.dialogFormVisible = false
