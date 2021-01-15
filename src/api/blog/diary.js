@@ -8,6 +8,17 @@ export function get(data) {
   })
 }
 
+export function getAllByUser(data) {
+  return request({
+    url: 'api/diary/timeline',
+    method: 'get',
+    params: {
+      size: 5
+    },
+    data
+  })
+}
+
 export function add(data) {
   return request({
     url: 'api/diary',
@@ -39,4 +50,4 @@ export function findOne(time) {
   })
 }
 
-export default { findOne, get, add, edit, del }
+export default { findOne, get, add, edit, del, getAllByUser }
