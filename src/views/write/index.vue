@@ -24,29 +24,35 @@
               />
             </el-form-item>
           </el-col>
+          <div>
+            mood: {{ this.diary.mood }}
+          </div>
+          <div>
+            tag:{{ this.diary.tag }}
+          </div>
           <div style="width: 100%;height: 900px;display: inline-block;padding: 10px">
             <div style="width: 100%;display: flex;justify-content: center">
               <div @click="openContent(1)" class="diary-card">
-                <div style="margin: 15px">{{ formData.field001 }}<p>{{this.diary.content1}}</p></div>
+                <div style="margin: 15px">{{ formData.field001 }}<p>{{ this.diary.content1 }}</p></div>
               </div>
               <div @click="openContent(2)" class="diary-card">
-                <div style="margin: 15px">{{ formData.field002 }}<p>{{this.diary.content2}}</p></div>
+                <div style="margin: 15px">{{ formData.field002 }}<p>{{ this.diary.content2 }}</p></div>
               </div>
             </div>
             <div style="width: 100%;display: flex;justify-content: center">
               <div @click="openContent(3)" class="diary-card">
-                <div style="margin: 15px">{{ formData.field003 }}<p>{{this.diary.content3}}</p></div>
+                <div style="margin: 15px">{{ formData.field003 }}<p>{{ this.diary.content3 }}</p></div>
               </div>
               <div @click="openContent(4)" class="diary-card">
-                <div style="margin: 15px">{{ formData.field004 }}<p>{{this.diary.content4}}</p></div>
+                <div style="margin: 15px">{{ formData.field004 }}<p>{{ this.diary.content4 }}</p></div>
               </div>
             </div>
             <div style="width: 100%;display: flex;justify-content: center">
               <div @click="openContent(5)" class="diary-card">
-                <div style="margin: 15px">{{ formData.field005 }}<p>{{this.diary.content5}}</p></div>
+                <div style="margin: 15px">{{ formData.field005 }}<p>{{ this.diary.content5 }}</p></div>
               </div>
               <div @click="openContent(6)" class="diary-card">
-                <div style="margin: 15px">{{ formData.field006 }}<p>{{this.diary.content6}}</p></div>
+                <div style="margin: 15px">{{ formData.field006 }}<p>{{ this.diary.content6 }}</p></div>
               </div>
             </div>
 
@@ -219,8 +225,6 @@
       },
       uploadFrom() {
         if (this.diary.id === null) {
-          console.log('xinjian')
-          console.log(this.diary)
           switch (this.diaryContentIndex) {
             case 1:
               this.diary.content1 = this.fadeFormData.field101
@@ -241,14 +245,13 @@
             case 5:
               this.diary.content5 = this.fadeFormData.field101
               this.createDiary()
-            break
-          case 6:
-            this.diary.content6 = this.fadeFormData.field101
-            this.createDiary()
-            break
-        }
-      } else {
-          console.log(this.diary)
+              break
+            case 6:
+              this.diary.content6 = this.fadeFormData.field101
+              this.createDiary()
+              break
+          }
+        } else {
           switch (this.diaryContentIndex) {
             case 1:
               this.diary.content1 = this.fadeFormData.field101
@@ -275,10 +278,10 @@
               this.updateDiary()
               break
           }
-          this.fadeFormData.field101 = undefined
-          this.dialogFormVisible = false
         }
-    },
+        this.fadeFormData.field101 = undefined
+        this.dialogFormVisible = false
+      },
     createDiary() {
       this.diary.period = 'daily'
       this.diary.dayTimestamp = this.formData.field1
