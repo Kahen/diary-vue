@@ -1,6 +1,6 @@
 <template>
   <div style="margin: 20px">
-    <div style="background: #409EFF;height: 100px;margin-bottom: 20px"/>
+    <!--    <div style="background: #409EFF;height: 100px;margin-bottom: 20px" />-->
     <div>
       <el-row :gutter="15">
         <el-form
@@ -12,7 +12,7 @@
           size="medium"
         >
           <el-col :span="24">
-            <el-form-item label="日期选择" prop="field1">
+            <el-form-item label="写下点什么..." prop="field1">
               <el-date-picker
                 v-model="formData.field1"
                 :style="{width: '100%'}"
@@ -24,35 +24,132 @@
               />
             </el-form-item>
           </el-col>
-          <div>
-            mood: {{ this.diary.mood }}
-          </div>
-          <div>
-            tag:{{ this.diary.tag }}
-          </div>
+          <!--          <div>-->
+          <!--            mood: {{ this.diary.mood }}-->
+          <!--          </div>-->
+          <!--          <div>-->
+          <!--            tag:{{ this.diary.tag }}-->
+          <!--          </div>-->
           <div style="width: 100%;height: 900px;display: inline-block;padding: 10px">
             <div style="width: 100%;display: flex;justify-content: center">
-              <div @click="openContent(1)" class="diary-card">
-                <div style="margin: 15px">{{ formData.field001 }}<p>{{ this.diary.content1 }}</p></div>
+              <div class="diary-card">
+                <div class="card_content" @click="openContent(1)">{{ formData.field001 }}<p>{{
+                    this.diary.content1
+                  }}</p>
+
+                </div>
+                <el-image
+                  :preview-src-list="[baseApi + '/file/' + tempImg1.type + '/' + tempImg1.realName]"
+                  :src=" baseApi + '/file/' + tempImg1.type + '/' + tempImg1.realName"
+                  class="el-avatar"
+                  fit="contain"
+                  lazy
+                  style="border-radius: 100%;margin-left: 15px"
+                >
+                  <div slot="error">
+                    <i class="el-icon-document"/>
+                  </div>
+                </el-image>
               </div>
-              <div @click="openContent(2)" class="diary-card">
-                <div style="margin: 15px">{{ formData.field002 }}<p>{{ this.diary.content2 }}</p></div>
+              <div class="diary-card">
+                <div class="card_content" @click="openContent(2)">{{ formData.field002 }}<p>{{
+                    this.diary.content2
+                  }}</p>
+
+                </div>
+                <el-image
+                  :preview-src-list="[baseApi + '/file/' + tempImg2.type + '/' + tempImg2.realName]"
+                  :src=" baseApi + '/file/' + tempImg2.type + '/' + tempImg2.realName"
+                  class="el-avatar"
+                  fit="contain"
+                  lazy
+                  style="border-radius: 100%;margin-left: 15px"
+                >
+                  <div slot="error">
+                    <i class="el-icon-document"/>
+                  </div>
+                </el-image>
               </div>
             </div>
             <div style="width: 100%;display: flex;justify-content: center">
-              <div @click="openContent(3)" class="diary-card">
-                <div style="margin: 15px">{{ formData.field003 }}<p>{{ this.diary.content3 }}</p></div>
+              <div class="diary-card">
+                <div class="card_content" @click="openContent(3)">{{ formData.field003 }}<p>{{
+                    this.diary.content3
+                  }}</p>
+
+                </div>
+                <el-image
+                  :preview-src-list="[baseApi + '/file/' + tempImg3.type + '/' + tempImg3.realName]"
+                  :src=" baseApi + '/file/' + tempImg3.type + '/' + tempImg3.realName"
+                  class="el-avatar"
+                  fit="contain"
+                  lazy
+                  style="border-radius: 100%;margin-left: 15px"
+                >
+                  <div slot="error">
+                    <i class="el-icon-document"/>
+                  </div>
+                </el-image>
               </div>
-              <div @click="openContent(4)" class="diary-card">
-                <div style="margin: 15px">{{ formData.field004 }}<p>{{ this.diary.content4 }}</p></div>
+              <div class="diary-card">
+                <div class="card_content" @click="openContent(4)">{{ formData.field004 }}<p>{{
+                    this.diary.content4
+                  }}</p>
+
+                </div>
+                <el-image
+                  :preview-src-list="[baseApi + '/file/' + tempImg4.type + '/' + tempImg4.realName]"
+                  :src=" baseApi + '/file/' + tempImg4.type + '/' + tempImg4.realName"
+                  class="el-avatar"
+                  fit="contain"
+                  lazy
+                  style="border-radius: 100%;margin-left: 15px"
+                >
+                  <div slot="error">
+                    <i class="el-icon-document"/>
+                  </div>
+                </el-image>
               </div>
             </div>
             <div style="width: 100%;display: flex;justify-content: center">
-              <div @click="openContent(5)" class="diary-card">
-                <div style="margin: 15px">{{ formData.field005 }}<p>{{ this.diary.content5 }}</p></div>
+              <div class="diary-card">
+                <div class="card_content" @click="openContent(5)">{{ formData.field005 }}<p>{{
+                    this.diary.content5
+                  }}</p>
+
+                </div>
+                <el-image
+                  :preview-src-list="[baseApi + '/file/' + tempImg5.type + '/' + tempImg5.realName]"
+                  :src=" baseApi + '/file/' + tempImg5.type + '/' + tempImg5.realName"
+                  class="el-avatar"
+                  fit="scale-down"
+                  lazy
+
+                  style="border-radius: 100%;margin-left: 15px"
+                >
+                  <div slot="error">
+                    <i class="el-icon-document"/>
+                  </div>
+                </el-image>
               </div>
-              <div @click="openContent(6)" class="diary-card">
-                <div style="margin: 15px">{{ formData.field006 }}<p>{{ this.diary.content6 }}</p></div>
+              <div class="diary-card">
+                <div class="card_content" @click="openContent(6)">{{ formData.field006 }}<p>{{
+                    this.diary.content6
+                  }}</p>
+
+                </div>
+                <el-image
+                  :preview-src-list="[baseApi + '/file/' + tempImg6.type + '/' + tempImg6.realName]"
+                  :src=" baseApi + '/file/' + tempImg6.type + '/' + tempImg6.realName"
+                  class="el-avatar"
+                  fit="contain"
+                  lazy
+                  style="border-radius: 100%;margin-left: 15px"
+                >
+                  <div slot="error">
+                    <i class="el-icon-document"/>
+                  </div>
+                </el-image>
               </div>
             </div>
 
@@ -86,15 +183,18 @@
         <el-form-item label="图片" prop="field201">
 
           <el-upload
-            :auto-upload="false"
+            :action="imagesUploadApi"
             :limit="1"
             :multiple="true"
             :on-exceed="overLimit"
+            :auto-upload="true"
+            :headers="headers"
+            :on-error="handleError"
             accept="image/*"
-            action="#"
+            :on-success="handleSuccess"
             list-type="picture-card"
           >
-            <i class="el-icon-plus" slot="default"/>
+            <i slot="default" class="el-icon-plus"/>
             <div slot="file" slot-scope="{file}">
               <img
                 :src="file.url"
@@ -125,7 +225,7 @@
               </span>
             </div>
             <!--            <i class="el-icon-plus" />-->
-            <div class="el-upload__tip" slot="tip">只能上传1张不超过 2MB 的image/*文件</div>
+            <div slot="tip" class="el-upload__tip">只能上传1张不超过 2MB 的image/*文件</div>
           </el-upload>
           <el-dialog :visible.sync="dialogVisible">
             <img :src="dialogImageUrl" alt="" width="100%">
@@ -135,153 +235,255 @@
 
       <div slot="footer" class="dialog-footer">
         <el-button @click="cancelForm()">取 消</el-button>
-        <el-button @click="uploadFrom()" type="primary">确 定</el-button>
+        <el-button type="primary" @click="uploadFrom()">确 定</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 <script>
-  import Diary from '@/api/blog/diary'
-  import user from '@/store/modules/user'
+import Diary from '@/api/blog/diary'
+import user from '@/store/modules/user'
+import { getToken } from '@/utils/auth'
+import { mapGetters } from 'vuex'
 
-  export default {
-    name: 'Write',
-    components: {},
-    props: [],
-    data() {
-      return {
-        diary: {
-          content1: undefined,
-          content2: undefined,
-          content3: undefined,
-          content4: undefined,
-          content5: undefined,
-          content6: undefined,
-          createdDate: undefined,
-          dayTimestamp: undefined,
-          guide1: undefined,
-          guide2: undefined,
-          guide3: undefined,
-          guide4: undefined,
-          guide5: undefined,
-          guide6: undefined,
-          id: undefined,
-          mood: undefined,
-          period: undefined,
-          tag: undefined,
-          updatedDate: undefined,
-          userId: undefined
-        },
-        diaryContentIndex: undefined,
-        privateState: {},
-        sharedState: user.state,
-        dialogImageUrl: '',
-        dialogVisible: false,
-        disabled: false,
-        fadeFormData: {
-          field101: undefined,
-          field201: null
-        },
-        fadeRules: {
-          field001: [],
-          field101: []
-        },
-        field201Action: 'https://jsonplaceholder.typicode.com/posts/',
-        field201fileList: [],
-        dialogTableVisible: false,
-        dialogFormVisible: false,
-        formLabelWidth: '120px',
-        formData: {
-          field1: new Date(),
-          field001: 1,
-          field002: 2,
-          field003: 3,
-          field004: 4,
-          field005: 5,
-          field006: 6
-        },
-        rules: {
-          field1: [],
-          field001: [],
-          field002: [],
-          field003: [],
-          field004: [],
-          field005: [],
-          field006: []
+export default {
+  name: 'Write',
+  components: {},
+  props: [],
+  data() {
+    return {
+      tempImg1: {
+        createBy: 'admin',
+        createTime: 1610895992000,
+        id: 18,
+        name: 'Snipaste_2021',
+        realName: '新建项目-20210121065922677.png',
+        size: undefined,
+        suffix: 'png',
+        type: '图片',
+        updateTime: 1610895992000,
+        updatedBy: 'admin'
+      },
+      tempImg2: {
+        createBy: 'admin',
+        createTime: 1610895992000,
+        id: 18,
+        name: 'Snipaste_2021',
+        realName: '新建项目-20210121065922677.png',
+        size: undefined,
+        suffix: 'png',
+        type: '图片',
+        updateTime: 1610895992000,
+        updatedBy: 'admin'
+      },
+      tempImg3: {
+        createBy: 'admin',
+        createTime: 1610895992000,
+        id: 18,
+        name: 'Snipaste_2021',
+        realName: '新建项目-20210121065922677.png',
+        size: undefined,
+        suffix: 'png',
+        type: '图片',
+        updateTime: 1610895992000,
+        updatedBy: 'admin'
+      },
+      tempImg4: {
+        createBy: 'admin',
+        createTime: 1610895992000,
+        id: 18,
+        name: 'Snipaste_2021',
+        realName: '新建项目-20210121065922677.png',
+        size: undefined,
+        suffix: 'png',
+        type: '图片',
+        updateTime: 1610895992000,
+        updatedBy: 'admin'
+      },
+      tempImg5: {
+        createBy: 'admin',
+        createTime: 1610895992000,
+        id: 18,
+        name: 'Snipaste_2021',
+        realName: '新建项目-20210121065922677.png',
+        size: undefined,
+        suffix: 'png',
+        type: '图片',
+        updateTime: 1610895992000,
+        updatedBy: 'admin'
+      },
+      tempImg6: {
+        createBy: 'admin',
+        createTime: 1610895992000,
+        id: 18,
+        name: 'Snipaste_2021',
+        realName: '新建项目-20210121065922677.png',
+        size: undefined,
+        suffix: 'png',
+        type: '图片',
+        updateTime: 1610895992000,
+        updatedBy: 'admin'
+      },
+      headers: { 'Authorization': getToken() },
+      diary: {
+        content1: undefined,
+        content2: undefined,
+        content3: undefined,
+        content4: undefined,
+        content5: undefined,
+        content6: undefined,
+        createdDate: undefined,
+        dayTimestamp: undefined,
+        guide1: undefined,
+        guide2: undefined,
+        guide3: undefined,
+        guide4: undefined,
+        guide5: undefined,
+        guide6: undefined,
+        id: undefined,
+        mood: undefined,
+        period: undefined,
+        tag: undefined,
+        updatedDate: undefined,
+        userId: undefined
+      },
+      diaryContentIndex: undefined,
+      privateState: {},
+      sharedState: user.state,
+      dialogImageUrl: '',
+      dialogVisible: false,
+      disabled: false,
+      fadeFormData: {
+        field101: undefined,
+        field201: undefined
+      },
+      fadeRules: {
+        field001: [],
+        field101: []
+      },
+      field201Action: 'https://jsonplaceholder.typicode.com/posts/',
+      field201fileList: [],
+      dialogTableVisible: false,
+      dialogFormVisible: false,
+      formLabelWidth: '120px',
+      formData: {
+        field1: new Date(),
+        field001: 1,
+        field002: 2,
+        field003: 3,
+        field004: 4,
+        field005: 5,
+        field006: 6
+      },
+      rules: {
+        field1: [],
+        field001: [],
+        field002: [],
+        field003: [],
+        field004: [],
+        field005: [],
+        field006: []
+      }
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'baseApi',
+      'fileUploadApi',
+      'imagesUploadApi'
+    ])
+  },
+  watch: {},
+  created() {
+    this.getDiary()
+  },
+  mounted() {
+  },
+  methods: {
+    openContent(index) {
+      switch (index) {
+        case 1:
+          this.fadeFormData.field101 = this.diary.content1
+          break
+        case 2:
+          this.fadeFormData.field101 = this.diary.content2
+          break
+        case 3:
+          this.fadeFormData.field101 = this.diary.content3
+          break
+        case 4:
+          this.fadeFormData.field101 = this.diary.content4
+          break
+        case 5:
+          this.fadeFormData.field101 = this.diary.content5
+          break
+        case 6:
+          this.fadeFormData.field101 = this.diary.content6
+          break
+      }
+
+      this.diaryContentIndex = index
+      this.dialogFormVisible = true
+    },
+    uploadFrom() {
+      if (this.diary.id === null) {
+        switch (this.diaryContentIndex) {
+          case 1:
+            this.diary.content1 = this.fadeFormData.field101
+            this.createDiary()
+            break
+          case 2:
+            this.diary.content2 = this.fadeFormData.field101
+            this.createDiary()
+            break
+          case 3:
+            this.diary.content3 = this.fadeFormData.field101
+            this.createDiary()
+            break
+          case 4:
+            this.diary.content4 = this.fadeFormData.field101
+            this.createDiary()
+            break
+          case 5:
+            this.diary.content5 = this.fadeFormData.field101
+            this.createDiary()
+            break
+          case 6:
+            this.diary.content6 = this.fadeFormData.field101
+            this.createDiary()
+            break
+        }
+      } else {
+        switch (this.diaryContentIndex) {
+          case 1:
+            this.diary.content1 = this.fadeFormData.field101
+            this.updateDiary()
+            break
+          case 2:
+            this.diary.content2 = this.fadeFormData.field101
+            this.updateDiary()
+            break
+          case 3:
+            this.diary.content3 = this.fadeFormData.field101
+            this.updateDiary()
+            break
+          case 4:
+            this.diary.content4 = this.fadeFormData.field101
+            this.updateDiary()
+            break
+          case 5:
+            this.diary.content5 = this.fadeFormData.field101
+            this.updateDiary()
+            break
+          case 6:
+            this.diary.content6 = this.fadeFormData.field101
+            this.updateDiary()
+            break
         }
       }
+      this.fadeFormData.field101 = undefined
+      this.dialogFormVisible = false
     },
-    computed: {},
-    watch: {},
-    created() {
-      this.getDiary()
-    },
-    mounted() {
-    },
-    methods: {
-      openContent(index) {
-        this.diaryContentIndex = index
-        this.dialogFormVisible = true
-      },
-      uploadFrom() {
-        if (this.diary.id === null) {
-          switch (this.diaryContentIndex) {
-            case 1:
-              this.diary.content1 = this.fadeFormData.field101
-              this.createDiary()
-              break
-            case 2:
-              this.diary.content2 = this.fadeFormData.field101
-              this.createDiary()
-              break
-            case 3:
-              this.diary.content3 = this.fadeFormData.field101
-              this.createDiary()
-              break
-            case 4:
-              this.diary.content4 = this.fadeFormData.field101
-              this.createDiary()
-              break
-            case 5:
-              this.diary.content5 = this.fadeFormData.field101
-              this.createDiary()
-              break
-            case 6:
-              this.diary.content6 = this.fadeFormData.field101
-              this.createDiary()
-              break
-          }
-        } else {
-          switch (this.diaryContentIndex) {
-            case 1:
-              this.diary.content1 = this.fadeFormData.field101
-              this.updateDiary()
-              break
-            case 2:
-              this.diary.content2 = this.fadeFormData.field101
-              this.updateDiary()
-              break
-            case 3:
-              this.diary.content3 = this.fadeFormData.field101
-              this.updateDiary()
-              break
-            case 4:
-              this.diary.content4 = this.fadeFormData.field101
-              this.updateDiary()
-              break
-            case 5:
-              this.diary.content5 = this.fadeFormData.field101
-              this.updateDiary()
-              break
-            case 6:
-              this.diary.content6 = this.fadeFormData.field101
-              this.updateDiary()
-              break
-          }
-        }
-        this.fadeFormData.field101 = undefined
-        this.dialogFormVisible = false
-      },
     createDiary() {
       this.diary.period = 'daily'
       this.diary.dayTimestamp = this.formData.field1
@@ -352,6 +554,38 @@
     },
     overLimit() {
       alert('over Limit')
+    },
+    handleError(e, file, fileList) {
+      const msg = JSON.parse(e.message)
+      this.$notify({
+        title: msg.message,
+        type: 'error',
+        duration: 2500
+      })
+      this.loading = false
+    },
+    handleSuccess(response, file, fileList) {
+      console.log(response)
+      switch (this.diaryContentIndex) {
+        case 1:
+          this.tempImg1 = response
+          break
+        case 2:
+          this.tempImg2 = response
+          break
+        case 3:
+          this.tempImg3 = response
+          break
+        case 4:
+          this.tempImg4 = response
+          break
+        case 5:
+          this.tempImg5 = response
+          break
+        case 6:
+          this.tempImg6 = response
+          break
+      }
     }
   }
 }
@@ -370,6 +604,33 @@
     font-size: 14px;
     font-weight: 800;
     font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  }
+
+  p {
+    position: relative;
+    line-height: 20px;
+    max-height: 180px;
+    overflow: hidden;
+  }
+
+  p::after {
+    content: "...";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding-left: 40px;
+    background: -webkit-linear-gradient(left, transparent, #fff 55%);
+    background: -o-linear-gradient(right, transparent, #fff 55%);
+    background: -moz-linear-gradient(right, transparent, #fff 55%);
+    background: linear-gradient(to right, transparent, #fff 55%);
+  }
+
+  .card_content {
+    padding: 15px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 240px;
+    width: 100%
   }
 </style>
 
