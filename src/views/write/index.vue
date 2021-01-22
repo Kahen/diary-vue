@@ -160,10 +160,10 @@
     <!-- Form -->
     <!--    <el-button type="text" @click="dialogFormVisible = true">打开嵌套表单的 Dialog</el-button>-->
 
-    <el-dialog :visible.sync="dialogFormVisible" title="日记内容">
+    <el-dialog :visible.sync="dialogFormVisible1" title="日记内容">
       <el-form
         ref="elForm"
-        :model="fadeFormData"
+        :model="fadeFormData1"
         :rules="fadeRules"
         label-position="top"
         label-width="100px"
@@ -171,7 +171,85 @@
       >
         <el-form-item label="多行文本" label-width="-1px" prop="field101">
           <el-input
-            v-model="fadeFormData.field101"
+            v-model="fadeFormData1.field101"
+            :autosize="{minRows: 8, maxRows: 8}"
+            :maxlength="5000"
+            :style="{width: '100%'}"
+            placeholder="请输入多行文本"
+            show-word-limit
+            type="textarea"
+          />
+        </el-form-item>
+        <el-form-item label="图片" prop="field201">
+
+          <el-upload
+            :action="imagesUploadApi"
+            :auto-upload="true"
+            :headers="headers"
+            :limit="1"
+            :multiple="true"
+            :on-error="handleError"
+            :on-exceed="overLimit"
+            :on-success="handleSuccess"
+            accept="image/*"
+            list-type="picture-card"
+          >
+            <i slot="default" class="el-icon-plus"/>
+            <div slot="file" slot-scope="{file}">
+              <img
+                :src="file.url"
+                alt=""
+                class="el-upload-list__item-thumbnail"
+              >
+              <span class="el-upload-list__item-actions">
+                <span
+                  class="el-upload-list__item-preview"
+                  @click="handlePictureCardPreview(file)"
+                >
+                  <i class="el-icon-zoom-in"/>
+                </span>
+                <span
+                  v-if="!disabled"
+                  class="el-upload-list__item-delete"
+                  @click="handleDownload(file)"
+                >
+                  <i class="el-icon-download"/>
+                </span>
+                <span
+                  v-if="!disabled"
+                  class="el-upload-list__item-delete"
+                  @click="handleRemove(file)"
+                >
+                  <i class="el-icon-delete"/>
+                </span>
+              </span>
+            </div>
+            <!--            <i class="el-icon-plus" />-->
+            <div slot="tip" class="el-upload__tip">只能上传1张不超过 2MB 的image/*文件</div>
+          </el-upload>
+          <el-dialog :visible.sync="dialogVisible">
+            <img :src="dialogImageUrl" alt="" width="100%">
+          </el-dialog>
+        </el-form-item>
+      </el-form>
+
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="cancelForm()">取 消</el-button>
+        <el-button type="primary" @click="uploadFrom()">确 定</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog :visible.sync="dialogFormVisible2" title="日记内容">
+      <el-form
+        ref="elForm"
+        :model="fadeFormData2"
+        :rules="fadeRules"
+        label-position="top"
+        label-width="100px"
+        size="medium"
+      >
+        <el-form-item label="多行文本" label-width="-1px" prop="field101">
+          <el-input
+            v-model="fadeFormData2.field101"
             :autosize="{minRows: 8, maxRows: 8}"
             :maxlength="5000"
             :style="{width: '100%'}"
@@ -192,6 +270,318 @@
             :on-error="handleError"
             accept="image/*"
             :on-success="handleSuccess"
+            list-type="picture-card"
+          >
+            <i slot="default" class="el-icon-plus"/>
+            <div slot="file" slot-scope="{file}">
+              <img
+                :src="file.url"
+                alt=""
+                class="el-upload-list__item-thumbnail"
+              >
+              <span class="el-upload-list__item-actions">
+                <span
+                  class="el-upload-list__item-preview"
+                  @click="handlePictureCardPreview(file)"
+                >
+                  <i class="el-icon-zoom-in"/>
+                </span>
+                <span
+                  v-if="!disabled"
+                  class="el-upload-list__item-delete"
+                  @click="handleDownload(file)"
+                >
+                  <i class="el-icon-download"/>
+                </span>
+                <span
+                  v-if="!disabled"
+                  class="el-upload-list__item-delete"
+                  @click="handleRemove(file)"
+                >
+                  <i class="el-icon-delete"/>
+                </span>
+              </span>
+            </div>
+            <!--            <i class="el-icon-plus" />-->
+            <div slot="tip" class="el-upload__tip">只能上传1张不超过 2MB 的image/*文件</div>
+          </el-upload>
+          <el-dialog :visible.sync="dialogVisible">
+            <img :src="dialogImageUrl" alt="" width="100%">
+          </el-dialog>
+        </el-form-item>
+      </el-form>
+
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="cancelForm()">取 消</el-button>
+        <el-button type="primary" @click="uploadFrom()">确 定</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog :visible.sync="dialogFormVisible3" title="日记内容">
+      <el-form
+        ref="elForm"
+        :model="fadeFormData3"
+        :rules="fadeRules"
+        label-position="top"
+        label-width="100px"
+        size="medium"
+      >
+        <el-form-item label="多行文本" label-width="-1px" prop="field101">
+          <el-input
+            v-model="fadeFormData3.field101"
+            :autosize="{minRows: 8, maxRows: 8}"
+            :maxlength="5000"
+            :style="{width: '100%'}"
+            placeholder="请输入多行文本"
+            show-word-limit
+            type="textarea"
+          />
+        </el-form-item>
+        <el-form-item label="图片" prop="field201">
+
+          <el-upload
+            :action="imagesUploadApi"
+            :auto-upload="true"
+            :headers="headers"
+            :limit="1"
+            :multiple="true"
+            :on-error="handleError"
+            :on-exceed="overLimit"
+            :on-success="handleSuccess"
+            accept="image/*"
+            list-type="picture-card"
+          >
+            <i slot="default" class="el-icon-plus"/>
+            <div slot="file" slot-scope="{file}">
+              <img
+                :src="file.url"
+                alt=""
+                class="el-upload-list__item-thumbnail"
+              >
+              <span class="el-upload-list__item-actions">
+                <span
+                  class="el-upload-list__item-preview"
+                  @click="handlePictureCardPreview(file)"
+                >
+                  <i class="el-icon-zoom-in"/>
+                </span>
+                <span
+                  v-if="!disabled"
+                  class="el-upload-list__item-delete"
+                  @click="handleDownload(file)"
+                >
+                  <i class="el-icon-download"/>
+                </span>
+                <span
+                  v-if="!disabled"
+                  class="el-upload-list__item-delete"
+                  @click="handleRemove(file)"
+                >
+                  <i class="el-icon-delete"/>
+                </span>
+              </span>
+            </div>
+            <!--            <i class="el-icon-plus" />-->
+            <div slot="tip" class="el-upload__tip">只能上传1张不超过 2MB 的image/*文件</div>
+          </el-upload>
+          <el-dialog :visible.sync="dialogVisible">
+            <img :src="dialogImageUrl" alt="" width="100%">
+          </el-dialog>
+        </el-form-item>
+      </el-form>
+
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="cancelForm()">取 消</el-button>
+        <el-button type="primary" @click="uploadFrom()">确 定</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog :visible.sync="dialogFormVisible4" title="日记内容">
+      <el-form
+        ref="elForm"
+        :model="fadeFormData4"
+        :rules="fadeRules"
+        label-position="top"
+        label-width="100px"
+        size="medium"
+      >
+        <el-form-item label="多行文本" label-width="-1px" prop="field101">
+          <el-input
+            v-model="fadeFormData4.field101"
+            :autosize="{minRows: 8, maxRows: 8}"
+            :maxlength="5000"
+            :style="{width: '100%'}"
+            placeholder="请输入多行文本"
+            show-word-limit
+            type="textarea"
+          />
+        </el-form-item>
+        <el-form-item label="图片" prop="field201">
+
+          <el-upload
+            :action="imagesUploadApi"
+            :auto-upload="true"
+            :headers="headers"
+            :limit="1"
+            :multiple="true"
+            :on-error="handleError"
+            :on-exceed="overLimit"
+            :on-success="handleSuccess"
+            accept="image/*"
+            list-type="picture-card"
+          >
+            <i slot="default" class="el-icon-plus"/>
+            <div slot="file" slot-scope="{file}">
+              <img
+                :src="file.url"
+                alt=""
+                class="el-upload-list__item-thumbnail"
+              >
+              <span class="el-upload-list__item-actions">
+                <span
+                  class="el-upload-list__item-preview"
+                  @click="handlePictureCardPreview(file)"
+                >
+                  <i class="el-icon-zoom-in"/>
+                </span>
+                <span
+                  v-if="!disabled"
+                  class="el-upload-list__item-delete"
+                  @click="handleDownload(file)"
+                >
+                  <i class="el-icon-download"/>
+                </span>
+                <span
+                  v-if="!disabled"
+                  class="el-upload-list__item-delete"
+                  @click="handleRemove(file)"
+                >
+                  <i class="el-icon-delete"/>
+                </span>
+              </span>
+            </div>
+            <!--            <i class="el-icon-plus" />-->
+            <div slot="tip" class="el-upload__tip">只能上传1张不超过 2MB 的image/*文件</div>
+          </el-upload>
+          <el-dialog :visible.sync="dialogVisible">
+            <img :src="dialogImageUrl" alt="" width="100%">
+          </el-dialog>
+        </el-form-item>
+      </el-form>
+
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="cancelForm()">取 消</el-button>
+        <el-button type="primary" @click="uploadFrom()">确 定</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog :visible.sync="dialogFormVisible5" title="日记内容">
+      <el-form
+        ref="elForm"
+        :model="fadeFormData5"
+        :rules="fadeRules"
+        label-position="top"
+        label-width="100px"
+        size="medium"
+      >
+        <el-form-item label="多行文本" label-width="-1px" prop="field101">
+          <el-input
+            v-model="fadeFormData5.field101"
+            :autosize="{minRows: 8, maxRows: 8}"
+            :maxlength="5000"
+            :style="{width: '100%'}"
+            placeholder="请输入多行文本"
+            show-word-limit
+            type="textarea"
+          />
+        </el-form-item>
+        <el-form-item label="图片" prop="field201">
+
+          <el-upload
+            :action="imagesUploadApi"
+            :auto-upload="true"
+            :headers="headers"
+            :limit="1"
+            :multiple="true"
+            :on-error="handleError"
+            :on-exceed="overLimit"
+            :on-success="handleSuccess"
+            accept="image/*"
+            list-type="picture-card"
+          >
+            <i slot="default" class="el-icon-plus"/>
+            <div slot="file" slot-scope="{file}">
+              <img
+                :src="file.url"
+                alt=""
+                class="el-upload-list__item-thumbnail"
+              >
+              <span class="el-upload-list__item-actions">
+                <span
+                  class="el-upload-list__item-preview"
+                  @click="handlePictureCardPreview(file)"
+                >
+                  <i class="el-icon-zoom-in"/>
+                </span>
+                <span
+                  v-if="!disabled"
+                  class="el-upload-list__item-delete"
+                  @click="handleDownload(file)"
+                >
+                  <i class="el-icon-download"/>
+                </span>
+                <span
+                  v-if="!disabled"
+                  class="el-upload-list__item-delete"
+                  @click="handleRemove(file)"
+                >
+                  <i class="el-icon-delete"/>
+                </span>
+              </span>
+            </div>
+            <!--            <i class="el-icon-plus" />-->
+            <div slot="tip" class="el-upload__tip">只能上传1张不超过 2MB 的image/*文件</div>
+          </el-upload>
+          <el-dialog :visible.sync="dialogVisible">
+            <img :src="dialogImageUrl" alt="" width="100%">
+          </el-dialog>
+        </el-form-item>
+      </el-form>
+
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="cancelForm()">取 消</el-button>
+        <el-button type="primary" @click="uploadFrom()">确 定</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog :visible.sync="dialogFormVisible6" title="日记内容">
+      <el-form
+        ref="elForm"
+        :model="fadeFormData6"
+        :rules="fadeRules"
+        label-position="top"
+        label-width="100px"
+        size="medium"
+      >
+        <el-form-item label="多行文本" label-width="-1px" prop="field101">
+          <el-input
+            v-model="fadeFormData6.field101"
+            :autosize="{minRows: 8, maxRows: 8}"
+            :maxlength="5000"
+            :style="{width: '100%'}"
+            placeholder="请输入多行文本"
+            show-word-limit
+            type="textarea"
+          />
+        </el-form-item>
+        <el-form-item label="图片" prop="field201">
+
+          <el-upload
+            :action="imagesUploadApi"
+            :auto-upload="true"
+            :headers="headers"
+            :limit="1"
+            :multiple="true"
+            :on-error="handleError"
+            :on-exceed="overLimit"
+            :on-success="handleSuccess"
+            accept="image/*"
             list-type="picture-card"
           >
             <i slot="default" class="el-icon-plus"/>
@@ -353,7 +743,27 @@ export default {
       dialogImageUrl: '',
       dialogVisible: false,
       disabled: false,
-      fadeFormData: {
+      fadeFormData1: {
+        field101: undefined,
+        field201: undefined
+      },
+      fadeFormData2: {
+        field101: undefined,
+        field201: undefined
+      },
+      fadeFormData3: {
+        field101: undefined,
+        field201: undefined
+      },
+      fadeFormData4: {
+        field101: undefined,
+        field201: undefined
+      },
+      fadeFormData5: {
+        field101: undefined,
+        field201: undefined
+      },
+      fadeFormData6: {
         field101: undefined,
         field201: undefined
       },
@@ -364,7 +774,12 @@ export default {
       field201Action: 'https://jsonplaceholder.typicode.com/posts/',
       field201fileList: [],
       dialogTableVisible: false,
-      dialogFormVisible: false,
+      dialogFormVisible1: false,
+      dialogFormVisible2: false,
+      dialogFormVisible3: false,
+      dialogFormVisible4: false,
+      dialogFormVisible5: false,
+      dialogFormVisible6: false,
       formLabelWidth: '120px',
       formData: {
         field1: new Date(),
@@ -403,86 +818,101 @@ export default {
     openContent(index) {
       switch (index) {
         case 1:
-          this.fadeFormData.field101 = this.diary.content1
+          this.fadeFormData1.field101 = this.diary.content1
+          this.dialogFormVisible1 = true
           break
         case 2:
-          this.fadeFormData.field101 = this.diary.content2
+          this.fadeFormData2.field101 = this.diary.content2
+          this.dialogFormVisible2 = true
           break
         case 3:
-          this.fadeFormData.field101 = this.diary.content3
+          this.fadeFormData3.field101 = this.diary.content3
+          this.dialogFormVisible3 = true
           break
         case 4:
-          this.fadeFormData.field101 = this.diary.content4
+          this.fadeFormData4.field101 = this.diary.content4
+          this.dialogFormVisible4 = true
           break
         case 5:
-          this.fadeFormData.field101 = this.diary.content5
+          this.fadeFormData5.field101 = this.diary.content5
+          this.dialogFormVisible5 = true
           break
         case 6:
-          this.fadeFormData.field101 = this.diary.content6
+          this.fadeFormData6.field101 = this.diary.content6
+          this.dialogFormVisible6 = true
           break
       }
 
       this.diaryContentIndex = index
-      this.dialogFormVisible = true
     },
     uploadFrom() {
       if (this.diary.id === null) {
         switch (this.diaryContentIndex) {
           case 1:
-            this.diary.content1 = this.fadeFormData.field101
+            this.diary.content1 = this.fadeFormData1.field101
             this.createDiary()
             break
           case 2:
-            this.diary.content2 = this.fadeFormData.field101
+            this.diary.content2 = this.fadeFormData2.field101
             this.createDiary()
             break
           case 3:
-            this.diary.content3 = this.fadeFormData.field101
+            this.diary.content3 = this.fadeFormData3.field101
             this.createDiary()
             break
           case 4:
-            this.diary.content4 = this.fadeFormData.field101
+            this.diary.content4 = this.fadeFormData4.field101
             this.createDiary()
             break
           case 5:
-            this.diary.content5 = this.fadeFormData.field101
+            this.diary.content5 = this.fadeFormData5.field101
             this.createDiary()
             break
           case 6:
-            this.diary.content6 = this.fadeFormData.field101
+            this.diary.content6 = this.fadeFormData6.field101
             this.createDiary()
             break
         }
       } else {
         switch (this.diaryContentIndex) {
           case 1:
-            this.diary.content1 = this.fadeFormData.field101
+            this.diary.content1 = this.fadeFormData1.field101
+            this.fadeFormData1.field101 = undefined
             this.updateDiary()
+            this.dialogFormVisible1 = false
             break
           case 2:
-            this.diary.content2 = this.fadeFormData.field101
+            this.diary.content2 = this.fadeFormData2.field101
+            this.fadeFormData2.field101 = undefined
+            this.dialogFormVisible2 = false
             this.updateDiary()
             break
           case 3:
-            this.diary.content3 = this.fadeFormData.field101
+            this.diary.content3 = this.fadeFormData3.field101
+            this.fadeFormData3.field101 = undefined
+            this.dialogFormVisible3 = false
             this.updateDiary()
             break
           case 4:
-            this.diary.content4 = this.fadeFormData.field101
+            this.diary.content4 = this.fadeFormData4.field101
+            this.fadeFormData4.field101 = undefined
+            this.dialogFormVisible4 = false
             this.updateDiary()
             break
           case 5:
-            this.diary.content5 = this.fadeFormData.field101
+            this.diary.content5 = this.fadeFormData5.field101
+            this.fadeFormData5.field101 = undefined
+            this.dialogFormVisible5 = false
             this.updateDiary()
             break
           case 6:
-            this.diary.content6 = this.fadeFormData.field101
+            this.diary.content6 = this.fadeFormData6.field101
+            this.fadeFormData6.field101 = undefined
+            this.dialogFormVisible6 = false
             this.updateDiary()
             break
         }
       }
-      this.fadeFormData.field101 = undefined
-      this.dialogFormVisible = false
     },
     createDiary() {
       this.diary.period = 'daily'
@@ -499,8 +929,32 @@ export default {
       })
     },
     cancelForm() {
-      this.dialogFormVisible = false
-      this.diaryContentIndex = undefined
+      switch (this.diaryContentIndex) {
+        case 1:
+          this.dialogFormVisible1 = false
+          this.diaryContentIndex = undefined
+          break
+        case 2:
+          this.dialogFormVisible2 = false
+          this.diaryContentIndex = undefined
+          break
+        case 3:
+          this.dialogFormVisible3 = false
+          this.diaryContentIndex = undefined
+          break
+        case 4:
+          this.dialogFormVisible4 = false
+          this.diaryContentIndex = undefined
+          break
+        case 5:
+          this.dialogFormVisible5 = false
+          this.diaryContentIndex = undefined
+          break
+        case 6:
+          this.dialogFormVisible6 = false
+          this.diaryContentIndex = undefined
+          break
+      }
     },
     getDiary(date1) {
       if (date1 === undefined) {
@@ -592,45 +1046,45 @@ export default {
 
 </script>
 <style>
-  .el-upload__tip {
-    line-height: 1.2;
-  }
+.el-upload__tip {
+  line-height: 1.2;
+}
 
-  .diary-card {
-    width: 50%;
-    height: 300px;
-    border: solid #f0f2f1;
-    color: #b3b4b6;
-    font-size: 14px;
-    font-weight: 800;
-    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-  }
+.diary-card {
+  width: 50%;
+  height: 300px;
+  border: solid #f0f2f1;
+  color: #b3b4b6;
+  font-size: 14px;
+  font-weight: 800;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+}
 
-  p {
-    position: relative;
-    line-height: 20px;
-    max-height: 180px;
-    overflow: hidden;
-  }
+p {
+  position: relative;
+  line-height: 20px;
+  max-height: 180px;
+  overflow: hidden;
+}
 
-  p::after {
-    content: "...";
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    padding-left: 40px;
-    background: -webkit-linear-gradient(left, transparent, #fff 55%);
-    background: -o-linear-gradient(right, transparent, #fff 55%);
-    background: -moz-linear-gradient(right, transparent, #fff 55%);
-    background: linear-gradient(to right, transparent, #fff 55%);
-  }
+p::after {
+  content: "...";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding-left: 40px;
+  background: -webkit-linear-gradient(left, transparent, #fff 55%);
+  background: -o-linear-gradient(right, transparent, #fff 55%);
+  background: -moz-linear-gradient(right, transparent, #fff 55%);
+  background: linear-gradient(to right, transparent, #fff 55%);
+}
 
-  .card_content {
-    padding: 15px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    height: 240px;
-    width: 100%
-  }
+.card_content {
+  padding: 15px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: 240px;
+  width: 100%
+}
 </style>
 
