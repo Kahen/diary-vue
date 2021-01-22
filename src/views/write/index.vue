@@ -773,7 +773,6 @@ export default {
       },
       field201Action: 'https://jsonplaceholder.typicode.com/posts/',
       field201fileList: [],
-      dialogTableVisible: false,
       dialogFormVisible1: false,
       dialogFormVisible2: false,
       dialogFormVisible3: false,
