@@ -635,6 +635,7 @@ import Diary from '@/api/blog/diary'
 import user from '@/store/modules/user'
 import { getToken } from '@/utils/auth'
 import { mapGetters } from 'vuex'
+import Img from '@/api/blog/img'
 
 export default {
   name: 'Write',
@@ -715,6 +716,7 @@ export default {
         updatedBy: 'admin'
       },
       headers: { 'Authorization': getToken() },
+
       diary: {
         content1: undefined,
         content2: undefined,
@@ -917,15 +919,61 @@ export default {
       this.diary.period = 'daily'
       this.diary.dayTimestamp = this.formData.field1
       console.log(this.formData.field1)
+      let blogId
       Diary.add(this.diary).then(res => {
         this.diary = res
+        blogId = this.diary.id
       })
+      const params = []
+      params.push(
+        this.tempImg1.realName,
+        this.tempImg2.realName,
+        this.tempImg3.realName,
+        this.tempImg4.realName,
+        this.tempImg5.realName,
+        this.tempImg6.realName
+      )
+
+      Img.add(
+        {
+          imgId: undefined,
+          blogId: blogId,
+          imgUrl: JSON.stringify(params)
+        }
+      ).then(
+        res => {
+          console.log(res)
+        }
+      )
     },
     updateDiary() {
       this.diary.dayTimestamp = this.formData.field1
+      const blogId = this.diary.id
       Diary.edit(this.diary).then(res => {
         // this.diary = res
       })
+
+      const params = []
+      params.push(
+        this.tempImg1.realName,
+        this.tempImg2.realName,
+        this.tempImg3.realName,
+        this.tempImg4.realName,
+        this.tempImg5.realName,
+        this.tempImg6.realName
+      )
+
+      Img.add(
+        {
+          imgId: undefined,
+          blogId: blogId,
+          imgUrl: JSON.stringify(params)
+        }
+      ).then(
+        res => {
+          console.log(res)
+        }
+      )
     },
     cancelForm() {
       switch (this.diaryContentIndex) {
@@ -978,6 +1026,13 @@ export default {
           this.formData.field005 = res.guide5
           this.formData.field006 = res.guide6
           this.diary = res
+          this.tempImg1.realName = res.imgUrls[0]
+          this.tempImg2.realName = res.imgUrls[1]
+          this.tempImg3.realName = res.imgUrls[2]
+          this.tempImg4.realName = res.imgUrls[3]
+          this.tempImg5.realName = res.imgUrls[4]
+          this.tempImg6.realName = res.imgUrls[5]
+          console.log(this.diary)
         }
       )
     },
