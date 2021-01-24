@@ -648,7 +648,7 @@ export default {
         createTime: 1610895992000,
         id: 18,
         name: 'Snipaste_2021',
-        realName: '新建项目-20210121065922677.png',
+        realName: 'transparent.png',
         size: undefined,
         suffix: 'png',
         type: '图片',
@@ -660,7 +660,7 @@ export default {
         createTime: 1610895992000,
         id: 18,
         name: 'Snipaste_2021',
-        realName: '新建项目-20210121065922677.png',
+        realName: 'transparent.png',
         size: undefined,
         suffix: 'png',
         type: '图片',
@@ -672,7 +672,7 @@ export default {
         createTime: 1610895992000,
         id: 18,
         name: 'Snipaste_2021',
-        realName: '新建项目-20210121065922677.png',
+        realName: 'transparent.png',
         size: undefined,
         suffix: 'png',
         type: '图片',
@@ -684,7 +684,7 @@ export default {
         createTime: 1610895992000,
         id: 18,
         name: 'Snipaste_2021',
-        realName: '新建项目-20210121065922677.png',
+        realName: 'transparent.png',
         size: undefined,
         suffix: 'png',
         type: '图片',
@@ -696,7 +696,7 @@ export default {
         createTime: 1610895992000,
         id: 18,
         name: 'Snipaste_2021',
-        realName: '新建项目-20210121065922677.png',
+        realName: 'transparent.png',
         size: undefined,
         suffix: 'png',
         type: '图片',
@@ -708,7 +708,7 @@ export default {
         createTime: 1610895992000,
         id: 18,
         name: 'Snipaste_2021',
-        realName: '新建项目-20210121065922677.png',
+        realName: 'transparent.png',
         size: undefined,
         suffix: 'png',
         type: '图片',
@@ -817,6 +817,7 @@ export default {
   },
   methods: {
     openContent(index) {
+      this.createDiary()
       switch (index) {
         case 1:
           this.fadeFormData1.field101 = this.diary.content1
@@ -919,32 +920,31 @@ export default {
       this.diary.period = 'daily'
       this.diary.dayTimestamp = this.formData.field1
       console.log(this.formData.field1)
-      let blogId
       Diary.add(this.diary).then(res => {
         this.diary = res
-        blogId = this.diary.id
       })
-      const params = []
-      params.push(
-        this.tempImg1.realName,
-        this.tempImg2.realName,
-        this.tempImg3.realName,
-        this.tempImg4.realName,
-        this.tempImg5.realName,
-        this.tempImg6.realName
-      )
-
-      Img.add(
-        {
-          imgId: undefined,
-          blogId: blogId,
-          imgUrl: JSON.stringify(params)
-        }
-      ).then(
-        res => {
-          console.log(res)
-        }
-      )
+      // console.log('create after:' + this.diary)
+      // const params = []
+      // params.push(
+      //   this.tempImg1.realName,
+      //   this.tempImg2.realName,
+      //   this.tempImg3.realName,
+      //   this.tempImg4.realName,
+      //   this.tempImg5.realName,
+      //   this.tempImg6.realName
+      // )
+      //
+      // Img.add(
+      //   {
+      //     imgId: undefined,
+      //     blogId: this.diary.id,
+      //     imgUrl: JSON.stringify(params)
+      //   }
+      // ).then(
+      //   res => {
+      //     console.log(res)
+      //   }
+      // )
     },
     updateDiary() {
       this.diary.dayTimestamp = this.formData.field1
