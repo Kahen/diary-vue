@@ -737,7 +737,8 @@ export default {
         period: undefined,
         tag: undefined,
         updatedDate: undefined,
-        userId: undefined
+        userId: undefined,
+        imgUrls: undefined
       },
       diaryContentIndex: undefined,
       privateState: {},
@@ -782,6 +783,7 @@ export default {
       dialogFormVisible5: false,
       dialogFormVisible6: false,
       formLabelWidth: '120px',
+      imgId: undefined,
       formData: {
         field1: new Date(),
         field001: 1,
@@ -817,7 +819,9 @@ export default {
   },
   methods: {
     openContent(index) {
-      this.createDiary()
+      if (this.diary.id === null) {
+        this.createDiary()
+      }
       switch (index) {
         case 1:
           this.fadeFormData1.field101 = this.diary.content1
@@ -923,28 +927,6 @@ export default {
       Diary.add(this.diary).then(res => {
         this.diary = res
       })
-      // console.log('create after:' + this.diary)
-      // const params = []
-      // params.push(
-      //   this.tempImg1.realName,
-      //   this.tempImg2.realName,
-      //   this.tempImg3.realName,
-      //   this.tempImg4.realName,
-      //   this.tempImg5.realName,
-      //   this.tempImg6.realName
-      // )
-      //
-      // Img.add(
-      //   {
-      //     imgId: undefined,
-      //     blogId: this.diary.id,
-      //     imgUrl: JSON.stringify(params)
-      //   }
-      // ).then(
-      //   res => {
-      //     console.log(res)
-      //   }
-      // )
     },
     updateDiary() {
       this.diary.dayTimestamp = this.formData.field1
@@ -963,15 +945,16 @@ export default {
         this.tempImg6.realName
       )
 
+      // if (this.diary)
       Img.add(
         {
-          imgId: undefined,
+          imgId: this.imgId,
           blogId: blogId,
           imgUrl: JSON.stringify(params)
         }
       ).then(
         res => {
-          console.log(res)
+          this.imgId = res.imgId
         }
       )
     },
@@ -1026,6 +1009,7 @@ export default {
           this.formData.field005 = res.guide5
           this.formData.field006 = res.guide6
           this.diary = res
+          this.imgId = res.imgId
           this.tempImg1.realName = res.imgUrls[0]
           this.tempImg2.realName = res.imgUrls[1]
           this.tempImg3.realName = res.imgUrls[2]
@@ -1061,7 +1045,7 @@ export default {
       console.log(file)
     },
     overLimit() {
-      alert('over Limit')
+      alert('只能上传1张不超过 2MB 的image/*文件')
     },
     handleError(e, file, fileList) {
       const msg = JSON.parse(e.message)
