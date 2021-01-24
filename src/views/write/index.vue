@@ -183,6 +183,7 @@
         <el-form-item label="图片" prop="field201">
 
           <el-upload
+            ref="pictureUpload1"
             :action="imagesUploadApi"
             :auto-upload="true"
             :headers="headers"
@@ -261,6 +262,7 @@
         <el-form-item label="图片" prop="field201">
 
           <el-upload
+            ref="pictureUpload2"
             :action="imagesUploadApi"
             :limit="1"
             :multiple="true"
@@ -339,6 +341,7 @@
         <el-form-item label="图片" prop="field201">
 
           <el-upload
+            ref="pictureUpload3"
             :action="imagesUploadApi"
             :auto-upload="true"
             :headers="headers"
@@ -417,6 +420,7 @@
         <el-form-item label="图片" prop="field201">
 
           <el-upload
+            ref="pictureUpload4"
             :action="imagesUploadApi"
             :auto-upload="true"
             :headers="headers"
@@ -483,6 +487,7 @@
       >
         <el-form-item label="多行文本" label-width="-1px" prop="field101">
           <el-input
+
             v-model="fadeFormData5.field101"
             :autosize="{minRows: 8, maxRows: 8}"
             :maxlength="5000"
@@ -495,6 +500,7 @@
         <el-form-item label="图片" prop="field201">
 
           <el-upload
+            ref="pictureUpload5"
             :action="imagesUploadApi"
             :auto-upload="true"
             :headers="headers"
@@ -573,6 +579,7 @@
         <el-form-item label="图片" prop="field201">
 
           <el-upload
+            ref="pictureUpload6"
             :action="imagesUploadApi"
             :auto-upload="true"
             :headers="headers"
@@ -636,6 +643,7 @@ import user from '@/store/modules/user'
 import { getToken } from '@/utils/auth'
 import { mapGetters } from 'vuex'
 import Img from '@/api/blog/img'
+import localStorage from '@/api/tools/localStorage'
 
 export default {
   name: 'Write',
@@ -1035,14 +1043,37 @@ export default {
       return isRightSize && isAccept
     },
     handleRemove(file) {
-      console.log(file)
+      const params = [file.response.id]
+      localStorage.del(params)
+      this.dialogImageUrl = ''
+      switch (this.diaryContentIndex) {
+        case 1:
+          this.$refs.pictureUpload1.handleRemove(file)
+          break
+        case 2:
+          this.$refs.pictureUpload2.handleRemove(file)
+          break
+        case 3:
+          this.$refs.pictureUpload3.handleRemove(file)
+          break
+        case 4:
+          this.$refs.pictureUpload4.handleRemove(file)
+          break
+        case 5:
+          this.$refs.pictureUpload5.handleRemove(file)
+          break
+        case 6:
+          this.$refs.pictureUpload6.handleRemove(file)
+          break
+      }
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url
       this.dialogVisible = true
     },
     handleDownload(file) {
-      console.log(file)
+      window.open(this.baseApi + '/file/' + this.tempImg1.type + '/' + file.response.realName)
+
     },
     overLimit() {
       alert('只能上传1张不超过 2MB 的image/*文件')
@@ -1057,7 +1088,6 @@ export default {
       this.loading = false
     },
     handleSuccess(response, file, fileList) {
-      console.log(response)
       switch (this.diaryContentIndex) {
         case 1:
           this.tempImg1 = response
