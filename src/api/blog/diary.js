@@ -12,9 +12,6 @@ export function getAllByUser(data) {
   return request({
     url: 'api/diary/timeline',
     method: 'get',
-    params: {
-      size: 5
-    },
     data
   })
 }
