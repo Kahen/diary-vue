@@ -11,8 +11,11 @@
         >
           <li v-for="item in blogs" :key="item" class="list-item">
             <div style="display: flex">
-              <el-avatar :size="45" :src="item.diaryUserDto.avatarUrl" fit="cover"
-                         style="margin:0 10px 10px 10px;border: solid #eceef5 1px;"
+              <el-avatar
+                :size="45"
+                :src="item.diaryUserDto.avatarUrl"
+                fit="cover"
+                style="margin:0 10px 10px 10px;border: solid #eceef5 1px;"
               />
               <div class="box-card" style="width: 90%">
                 <div slot="header" class="clearfix">

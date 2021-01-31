@@ -8,11 +8,14 @@ export function get(data) {
   })
 }
 
-export function getAllByUser(data) {
+export function getAllByUser(page, count) {
   return request({
     url: 'api/diary/timeline',
     method: 'get',
-    data
+    params: {
+      page: page,
+      size: count
+    }
   })
 }
 

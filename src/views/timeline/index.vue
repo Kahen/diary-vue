@@ -14,25 +14,25 @@
           <!--            style="width: 100%;"-->
           <!--          >-->
           <!--            <li v-for="i in count" class="list-item" style="width: 100%;padding: 0 20px 20px 20px">-->
-          <el-timeline-item v-for="i in count" :timestamp="diaryList[i-1].dayTimestamp" placement="top">
+          <el-timeline-item v-for="diary in diaryList" :key="diary.id" :timestamp="diary.dayTimestamp" placement="top">
             <el-collapse v-model="activeNames" @change="handleChange">
-              <el-collapse-item :name="diaryList[i-1].id+1" :title="diaryList[i-1].guide1">
-                <div>{{ diaryList[i - 1].content1 }}</div>
+              <el-collapse-item :name="diary.id+1" :title="diary.guide1">
+                <div>{{ diary.content1 }}</div>
               </el-collapse-item>
-              <el-collapse-item :name="diaryList[i-1].id+2" :title="diaryList[i-1].guide2">
-                <div>{{ diaryList[i - 1].content2 }}</div>
+              <el-collapse-item :name="diary.id+2" :title="diary.guide2">
+                <div>{{ diary.content2 }}</div>
               </el-collapse-item>
-              <el-collapse-item :name="diaryList[i-1].id+3" :title="diaryList[i-1].guide3">
-                <div>{{ diaryList[i - 1].content3 }}</div>
+              <el-collapse-item :name="diary.id+3" :title="diary.guide3">
+                <div>{{ diary.content3 }}</div>
               </el-collapse-item>
-              <el-collapse-item :name="diaryList[i-1].id+4" :title="diaryList[i-1].guide4">
-                <div>{{ diaryList[i - 1].content4 }}</div>
+              <el-collapse-item :name="diary.id+4" :title="diary.guide4">
+                <div>{{ diary.content4 }}</div>
               </el-collapse-item>
-              <el-collapse-item :name="diaryList[i-1].id+5" :title="diaryList[i-1].guide5">
-                <div>{{ diaryList[i - 1].content5 }}</div>
+              <el-collapse-item :name="diary.id+5" :title="diary.guide5">
+                <div>{{ diary.content5 }}</div>
               </el-collapse-item>
-              <el-collapse-item :name="diaryList[i-1].id+6" :title="diaryList[i-1].guide6">
-                <div>{{ diaryList[i - 1].content6 }}</div>
+              <el-collapse-item :name="diary.id+6" :title="diary.guide6">
+                <div>{{ diary.content6 }}</div>
               </el-collapse-item>
             </el-collapse>
           </el-timeline-item>
@@ -58,7 +58,7 @@ export default {
   data() {
     return {
       activeNames: [],
-      diaryList: undefined,
+      diaryList: [],
       page: 0,
       count: 10,
       loading: false,
@@ -67,7 +67,7 @@ export default {
   },
   computed: {
     noMore() {
-      return this.count >= this.final
+      return this.diaryList.length >= this.final
     },
     disabled() {
       return this.loading || this.noMore
@@ -75,7 +75,7 @@ export default {
   },
   watch: {},
   created() {
-    this.getDiary()
+    this.getDiary(0)
   },
   mounted() {
   },
@@ -83,19 +83,21 @@ export default {
     handleChange(val) {
       // console.log(val)
     },
-    getDiary() {
-      Diary.getAllByUser().then(
+    getDiary(page) {
+      Diary.getAllByUser(page, this.count).then(
         res => {
-          this.diaryList = res
+          // console.log(res)
+          this.diaryList = this.diaryList.concat(res.content)
+          this.final = res.totalElements
           console.log(this.diaryList)
         }
       )
     },
     load() {
       this.loading = true
-      this.final = this.diaryList.length
+      this.page++
       setTimeout(() => {
-        this.count += 2
+        this.getDiary(this.page)
         this.loading = false
       }, 1000)
     }
