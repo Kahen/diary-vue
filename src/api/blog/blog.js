@@ -24,4 +24,15 @@ export function edit(data) {
   })
 }
 
-export default { add, edit, del }
+export function homeLine(data) {
+  return request({
+    url: 'api/blog/homeLine',
+    method: 'get',
+    params: {
+      page: 0,
+      size: 10
+    }
+  })
+}
+
+export default { homeLine, add, edit, del }

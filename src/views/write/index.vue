@@ -1135,24 +1135,28 @@ p {
   overflow: hidden;
 }
 
-p::after {
-  content: "...";
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  padding-left: 40px;
-  background: -webkit-linear-gradient(left, transparent, #fff 55%);
-  background: -o-linear-gradient(right, transparent, #fff 55%);
-  background: -moz-linear-gradient(right, transparent, #fff 55%);
-  background: linear-gradient(to right, transparent, #fff 55%);
-}
+/*p::after {*/
+/*  content: "...";*/
+/*  position: absolute;*/
+/*  bottom: 0;*/
+/*  right: 0;*/
+/*  padding-left: 40px;*/
+/*  background: -webkit-linear-gradient(left, transparent, #fff 55%);*/
+/*  background: -o-linear-gradient(right, transparent, #fff 55%);*/
+/*  background: -moz-linear-gradient(right, transparent, #fff 55%);*/
+/*  background: linear-gradient(to right, transparent, #fff 55%);*/
+/*}*/
 
 .card_content {
   padding: 15px;
   text-overflow: ellipsis;
   overflow: hidden;
   height: 240px;
-  width: 100%
+  width: 100%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
 }
 </style>
 
