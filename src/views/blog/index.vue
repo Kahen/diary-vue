@@ -27,6 +27,24 @@
                 <div class="text item">
                   {{ item.content }}
                 </div>
+                <div v-if="item.imgDto" style="width: 500px;display: flex;justify-content:left;">
+
+                  <el-image v-for="img in parseImgUrl(item.imgDto.imgUrl)" :key="img"
+                            :preview-src-list="parseImgUrl(item.imgDto.imgUrl)" :src="img" fit="cover"
+                            style="margin: 10px;width:100px;"
+                  />
+                </div>
+                <div class="blog_under">
+                  <div v-if="!collect" class="under_item"><img src="@/assets/collect.png"/>收藏</div>
+                  <div v-else class="under_item_active"><img src="@/assets/collect_active.png"/>收藏</div>
+                  <el-divider direction="vertical"/>
+                  <div class="under_item"><img src="@/assets/repost.png"/>转发</div>
+                  <el-divider direction="vertical"/>
+                  <div class="under_item"><img src="@/assets/comment.png"/>评论</div>
+                  <el-divider direction="vertical"/>
+                  <div v-if="!like" class="under_item"><img src="@/assets/like.png"/>点赞</div>
+                  <div v-else class="under_item_active"><img src="@/assets/like_active.png"/>点赞</div>
+                </div>
                 <el-divider><i class="el-icon-c-scale-to-original"/></el-divider>
               </div>
             </div>
@@ -36,6 +54,7 @@
         <p v-if="noMore" style="text-align: center">没有更多了</p>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -48,7 +67,9 @@ export default {
       blogs: undefined,
       url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
       count: 10,
-      loading: false
+      loading: false,
+      like: true,
+      collect: true
     }
   },
   computed: {
@@ -68,7 +89,7 @@ export default {
       Blog.homeLine().then(
         res => {
           this.blogs = res.content
-          console.log(this.blogs)
+          // console.log(this.blogs)
         }
       )
     },
@@ -118,24 +139,27 @@ export default {
       } else {
         return ''
       }
+    },
+    parseImgUrl(imgUrls) {
+      return JSON.parse(imgUrls)
     }
 
   }
 }
 </script>
 
-<style scoped>
-  .text {
-    /*white-space:pre;*/
-    white-space: pre-line;
-    font-size: 16px;
-    line-height: 24px;
-  }
+<style lang="less" scoped>
+.text {
+  /*white-space:pre;*/
+  white-space: pre-line;
+  font-size: 16px;
+  line-height: 24px;
+}
 
-  .item {
-    margin-top: 5px;
-    margin-bottom: 18px;
-  }
+.item {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
 
   .list-item {
     width: 100%;
@@ -165,10 +189,45 @@ export default {
 
   }
 
-  .publish-time {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    font-size: 8px;
-    color: #b3b4b6;
+.publish-time {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 8px;
+  color: #b3b4b6;
+}
+
+.blog_under {
+  color: #b3b4b6;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  height: 50px;
+
+  .under_item {
+    //float: left;
+    display: flex;
+    align-items: center;
+    width: 50px;
+
+    img {
+      margin: auto;
+      height: 14px;
+      width: 14px;
+    }
   }
+
+  .under_item_active {
+    //float: left;
+    display: flex;
+    align-items: center;
+    width: 50px;
+    color: #20a0ff;
+    text-align: center;
+
+    img {
+      height: 14px;
+      width: 14px;
+    }
+  }
+}
 </style>

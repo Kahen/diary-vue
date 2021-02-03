@@ -17,41 +17,41 @@
 </template>
 
 <script>
-  import { AppMain, Header } from './components'
-  import ResizeMixin from './mixin/ResizeHandler'
+import { AppMain, Header } from './components'
+import ResizeMixin from './mixin/ResizeHandler'
 
-  export default {
-    name: 'Layout',
-    components: {
-      Header,
-      AppMain
+export default {
+  name: 'Layout',
+  components: {
+    Header,
+    AppMain
+  },
+  mixins: [ResizeMixin],
+  computed: {
+    sidebar() {
+      return this.$store.state.app.sidebar
     },
-    mixins: [ResizeMixin],
-    computed: {
-      sidebar() {
-        return this.$store.state.app.sidebar
-      },
-      device() {
-        return this.$store.state.app.device
-      },
-      fixedHeader() {
-        return this.$store.state.settings.fixedHeader
-      },
-      classObj() {
-        return {
-          hideSidebar: !this.sidebar.opened,
-          openSidebar: this.sidebar.opened,
-          withoutAnimation: this.sidebar.withoutAnimation,
-          mobile: this.device === 'mobile'
-        }
-      }
+    device() {
+      return this.$store.state.app.device
     },
-    methods: {
-      handleClickOutside() {
-        this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
+    fixedHeader() {
+      return this.$store.state.settings.fixedHeader
+    },
+    classObj() {
+      return {
+        hideSidebar: !this.sidebar.opened,
+        openSidebar: this.sidebar.opened,
+        withoutAnimation: this.sidebar.withoutAnimation,
+        mobile: this.device === 'mobile'
       }
     }
+  },
+  methods: {
+    handleClickOutside() {
+      this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
+    }
   }
+}
 </script>
 
 <style lang="scss" scoped>

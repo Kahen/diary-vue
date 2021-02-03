@@ -30,8 +30,10 @@ export function homeLine(data) {
     method: 'get',
     params: {
       page: 0,
-      size: 10
-    }
+      size: 10,
+      sort: 'publishTime,desc'
+    },
+    direction: 'DESC'
   })
 }
 
