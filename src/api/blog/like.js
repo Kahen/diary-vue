@@ -24,4 +24,14 @@ export function edit(data) {
   })
 }
 
-export default { add, edit, del }
+export function createOrUpdate(blogId, data) {
+  return request({
+    url: 'api/like/' + blogId,
+    method: 'get',
+    params: {
+      likeId: data
+    }
+  })
+}
+
+export default { add, edit, del, createOrUpdate }

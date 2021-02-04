@@ -29,21 +29,39 @@
                 </div>
                 <div v-if="item.imgDto" style="width: 500px;display: flex;justify-content:left;">
 
-                  <el-image v-for="img in parseImgUrl(item.imgDto.imgUrl)" :key="img"
-                            :preview-src-list="parseImgUrl(item.imgDto.imgUrl)" :src="img" fit="cover"
-                            style="margin: 10px;width:100px;"
+                  <el-image
+                    v-for="img in parseImgUrl(item.imgDto.imgUrl)"
+                    :key="img"
+                    :preview-src-list="parseImgUrl(item.imgDto.imgUrl)"
+                    :src="img"
+                    fit="cover"
+                    style="margin: 10px;width:100px;"
                   />
                 </div>
                 <div class="blog_under">
-                  <div v-if="!collect" class="under_item"><img src="@/assets/collect.png"/>收藏</div>
-                  <div v-else class="under_item_active"><img src="@/assets/collect_active.png"/>收藏</div>
                   <el-divider direction="vertical"/>
-                  <div class="under_item"><img src="@/assets/repost.png"/>转发</div>
+
+                  <div v-if="!item.collect" class="under_item" type="button" @click="changeCollect(item.collect)"><img
+                    src="@/assets/collect.png"
+                  >收藏
+                  </div>
+                  <div v-else class="under_item_active" type="button" @click="changeCollect(item.collect)"><img
+                    src="@/assets/collect_active.png"
+                  >收藏
+                  </div>
                   <el-divider direction="vertical"/>
-                  <div class="under_item"><img src="@/assets/comment.png"/>评论</div>
+                  <div class="under_item"><img alt="" src="@/assets/repost.png">转发</div>
                   <el-divider direction="vertical"/>
-                  <div v-if="!like" class="under_item"><img src="@/assets/like.png"/>点赞</div>
-                  <div v-else class="under_item_active"><img src="@/assets/like_active.png"/>点赞</div>
+                  <div class="under_item"><img alt="" src="@/assets/comment.png">评论</div>
+                  <el-divider direction="vertical"/>
+                  <div v-if="!item.like" class="under_item" @click="changeLike(item)"><img alt=""
+                                                                                           src="@/assets/like.png"
+                  >点赞
+                  </div>
+                  <div v-else class="under_item_active" @click="changeLike(item)"><img src="@/assets/like_active.png">点赞
+                  </div>
+                  <el-divider direction="vertical"/>
+
                 </div>
                 <el-divider><i class="el-icon-c-scale-to-original"/></el-divider>
               </div>
@@ -60,6 +78,8 @@
 
 <script>
 import Blog from '@/api/blog/blog'
+import Like from '@/api/blog/like'
+import collect from '@/api/blog/collect'
 
 export default {
   data() {
@@ -67,9 +87,9 @@ export default {
       blogs: undefined,
       url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
       count: 10,
-      loading: false,
-      like: true,
-      collect: true
+      loading: false
+      // like: true,
+      // collect: true
     }
   },
   computed: {
@@ -84,7 +104,37 @@ export default {
     this.getBlog()
   },
   methods: {
-
+    changeCollect(data) {
+      if (data == null) {
+        collect.add(data).then(
+          res => {
+            console.log(res)
+          }
+        )
+      } else {
+        collect.del(data).then(
+          res => console.log(res)
+        )
+      }
+    },
+    changeLike(blog) {
+      let id = ''
+      if (blog.like != null) {
+        id = blog.like.likeId
+      }
+      Like.createOrUpdate(blog.blogId, id).then(
+        res => {
+          console.log(res)
+          const indexOf = this.blogs.indexOf(blog)
+          console.log(this.blogs.indexOf)
+          if (res.likeId == null) {
+            this.blogs[indexOf].like = null
+          } else {
+            this.blogs[indexOf].like = res
+          }
+        }
+      )
+    },
     getBlog() {
       Blog.homeLine().then(
         res => {
@@ -208,9 +258,10 @@ export default {
     display: flex;
     align-items: center;
     width: 50px;
+    cursor: pointer;
 
     img {
-      margin: auto;
+      //margin: auto;
       height: 14px;
       width: 14px;
     }
@@ -222,7 +273,7 @@ export default {
     align-items: center;
     width: 50px;
     color: #20a0ff;
-    text-align: center;
+    cursor: pointer;
 
     img {
       height: 14px;
