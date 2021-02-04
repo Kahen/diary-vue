@@ -24,4 +24,14 @@ export function edit(data) {
   })
 }
 
-export default { add, edit, del }
+export function createOrUpdate(blogId, data) {
+  return request({
+    url: 'api/collect/' + blogId,
+    method: 'get',
+    params: {
+      collectId: data
+    }
+  })
+}
+
+export default { add, edit, del, createOrUpdate }

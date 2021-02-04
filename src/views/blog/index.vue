@@ -41,11 +41,11 @@
                 <div class="blog_under">
                   <el-divider direction="vertical"/>
 
-                  <div v-if="!item.collect" class="under_item" type="button" @click="changeCollect(item.collect)"><img
+                  <div v-if="!item.collect" class="under_item" type="button" @click="changeCollect(item)"><img
                     src="@/assets/collect.png"
                   >收藏
                   </div>
-                  <div v-else class="under_item_active" type="button" @click="changeCollect(item.collect)"><img
+                  <div v-else class="under_item_active" type="button" @click="changeCollect(item)"><img
                     src="@/assets/collect_active.png"
                   >收藏
                   </div>
@@ -104,18 +104,21 @@ export default {
     this.getBlog()
   },
   methods: {
-    changeCollect(data) {
-      if (data == null) {
-        collect.add(data).then(
-          res => {
-            console.log(res)
-          }
-        )
-      } else {
-        collect.del(data).then(
-          res => console.log(res)
-        )
+    changeCollect(blog) {
+      let id = ''
+      if (blog.collect != null) {
+        id = blog.collect.collectId
       }
+      collect.createOrUpdate(blog.blogId, id).then(
+        res => {
+          const indexOf = this.blogs.indexOf(blog)
+          if (res.collectId == null) {
+            this.blogs[indexOf].collect = null
+          } else {
+            this.blogs[indexOf].collect = res
+          }
+        }
+      )
     },
     changeLike(blog) {
       let id = ''
@@ -124,9 +127,7 @@ export default {
       }
       Like.createOrUpdate(blog.blogId, id).then(
         res => {
-          console.log(res)
           const indexOf = this.blogs.indexOf(blog)
-          console.log(this.blogs.indexOf)
           if (res.likeId == null) {
             this.blogs[indexOf].like = null
           } else {
