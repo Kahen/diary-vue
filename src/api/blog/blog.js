@@ -24,16 +24,15 @@ export function edit(data) {
   })
 }
 
-export function homeLine(data) {
+export function homeLine(page, count) {
   return request({
     url: 'api/blog/homeLine',
     method: 'get',
     params: {
-      page: 0,
-      size: 10,
+      page: page,
+      size: count,
       sort: 'publishTime,desc'
-    },
-    direction: 'DESC'
+    }
   })
 }
 

@@ -7,30 +7,43 @@
           <div class="title">
             <!--            <img class="sidebar-logo" src="../../assets/logo-ele.png">-->
             <div class="svg">
-              <svg class="icon" height="100%" p-id="3057" t="1609234915375"
-                   version="1.1" viewBox="0 0 1024 1024" width="100%" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                class="icon"
+                height="100%"
+                p-id="3057"
+                t="1609234915375"
+                version="1.1"
+                viewBox="0 0 1024 1024"
+                width="100%"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
                   d="M160 160v704h704V160H160z m64 64h576v576H224V224z m128 128v320h64V352h-64z m128 0v64h192v-64h-192z m0 128v64h192v-64h-192z m0 128v64h192v-64h-192z"
-                  fill="#409eff" p-id="3058"></path>
+                  fill="#409eff"
+                  p-id="3058"
+                />
               </svg>
             </div>
             <div class="text-custom">格子日志</div>
           </div>
 
-          <el-menu :default-active="this.$route.path" class="custom-menu"
-                   mode="horizontal"
-                   router
-                   unique-opened>
+          <el-menu
+            :default-active="this.$route.path"
+            class="custom-menu"
+            mode="horizontal"
+            router
+            unique-opened
+          >
             <template v-for="item in items">
-              <el-submenu :index="item.index" v-if="item.subs">
+              <el-submenu v-if="item.subs" :index="item.index">
                 <template>
-                  <el-menu-item :index="subItem.index" :key="i" v-for="(subItem,i) in item.subs">
-                    <span slot="title">{{subItem.title}}</span>
+                  <el-menu-item v-for="(subItem,i) in item.subs" :key="i" :index="subItem.index">
+                    <span slot="title">{{ subItem.title }}</span>
                   </el-menu-item>
                 </template>
               </el-submenu>
-              <el-menu-item :index='item.index' :key="item.id" v-else>
-                <i :class="item.icon"></i>
+              <el-menu-item v-else :key="item.id" :index="item.index">
+                <i :class="item.icon"/>
                 <span slot="title">{{ item.title }}</span>
               </el-menu-item>
             </template>
@@ -41,24 +54,24 @@
           <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
             <div class="avatar-wrapper">
 
-              <el-avatar :size="40" :src="url" fit="cover" shape="square"></el-avatar>
+              <el-avatar :size="40" :src="url" fit="cover" shape="square"/>
               <!--              <img src="../../assets/avatar.jpg" class="user-avatar">-->
               <i class="el-icon-caret-bottom"/>
             </div>
             <el-dropdown-menu slot="dropdown">
-          <span @click="show = true" style="display:block;">
-<!--            <el-dropdown-item>布局设置</el-dropdown-item>-->
-          </span>
+              <span style="display:block;" @click="show = true">
+                <!--            <el-dropdown-item>布局设置</el-dropdown-item>-->
+              </span>
               <router-link to="/user/center">
                 <el-dropdown-item>
                   个人中心
                 </el-dropdown-item>
               </router-link>
-              <span @click="open" style="display:block;">
-            <el-dropdown-item divided>
-              退出登录
-            </el-dropdown-item>
-          </span>
+              <span style="display:block;" @click="open">
+                <el-dropdown-item divided>
+                  退出登录
+                </el-dropdown-item>
+              </span>
             </el-dropdown-menu>
           </el-dropdown>
 
@@ -71,76 +84,76 @@
   </div>
 </template>
 <script>
-  import { mapGetters } from 'vuex'
-  import user from '@/store/modules/user'
+import { mapGetters } from 'vuex'
+import user from '@/store/modules/user'
 
-  export default {
-    ...mapGetters([
-      'sidebar',
-      'device',
-      'user'
-    ]),
-    computed: {
-      show: {
-        get() {
-          return this.$store.state.settings.showSettings
+export default {
+  ...mapGetters([
+    'sidebar',
+    'device',
+    'user'
+  ]),
+  data() {
+    return {
+      name: 'Header',
+      url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+      items: [
+        {
+          index: '/dashboard',
+          title: '首页'
         },
-        set(val) {
-          this.$store.dispatch('settings/changeSetting', {
-            key: 'showSettings',
-            value: val
-          })
+        {
+          index: '/write',
+          title: '日记'
+        },
+        {
+          index: '/timeline',
+          title: '时间线'
+        },
+        {
+          index: '/blog',
+          title: '博客'
         }
-      }
-    },
-    methods: {
-      toggleSideBar() {
-        this.$store.dispatch('app/toggleSideBar')
-      },
-      open() {
-        console.log(user)
-        this.$confirm('确定注销并退出系统吗？', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.logout()
-        })
-      },
-      logout() {
-        this.$store.dispatch('LogOut').then(() => {
-          location.reload()
-        })
-      }
-    },
-    data() {
-      return {
-        name: 'Header',
-        url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-        items: [
-          {
-            index: '/dashboard',
-            title: '首页'
-          },
-          {
-            index: '/write',
-            title: '日记'
-          },
-          {
-            index: '/timeline',
-            title: '时间线'
-          },
-          {
-            index: '/blog',
-            title: '博客'
-          }
-        ],
-        options: []
+      ],
+      options: []
 
+    }
+  },
+  computed: {
+    show: {
+      get() {
+        return this.$store.state.settings.showSettings
+      },
+      set(val) {
+        this.$store.dispatch('settings/changeSetting', {
+          key: 'showSettings',
+          value: val
+        })
       }
     }
-
+  },
+  methods: {
+    toggleSideBar() {
+      this.$store.dispatch('app/toggleSideBar')
+    },
+    open() {
+      console.log(user)
+      this.$confirm('确定注销并退出系统吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.logout()
+      })
+    },
+    logout() {
+      this.$store.dispatch('LogOut').then(() => {
+        location.reload()
+      })
+    }
   }
+
+}
 </script>
 <style lang="less" scoped>
   .title {
@@ -159,7 +172,6 @@
       justify-content: center;
       /*align-items: center;*/
     }
-
 
   }
 
@@ -231,7 +243,6 @@
     display: flex;
     justify-items: center;
   }
-
 
   .user-info {
     /*margin-right: 250px;*/

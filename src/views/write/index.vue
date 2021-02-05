@@ -1123,6 +1123,7 @@ export default {
   height: 300px;
   border: solid #f0f2f1;
   color: #b3b4b6;
+  border-radius: 4px;
   font-size: 14px;
   font-weight: 800;
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;

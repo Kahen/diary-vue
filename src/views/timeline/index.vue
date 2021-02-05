@@ -62,7 +62,7 @@ export default {
       page: 0,
       count: 10,
       loading: false,
-      final: 20
+      final: 2
     }
   },
   computed: {
@@ -89,7 +89,6 @@ export default {
           // console.log(res)
           this.diaryList = this.diaryList.concat(res.content)
           this.final = res.totalElements
-          console.log(this.diaryList)
         }
       )
     },

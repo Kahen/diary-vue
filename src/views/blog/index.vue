@@ -43,26 +43,34 @@
 
                   <div v-if="!item.collect" class="under_item" type="button" @click="changeCollect(item)"><img
                     src="@/assets/collect.png"
-                  >收藏
+                  >{{ item.collectCount == 0 ? '收藏' : item.collectCount }}
                   </div>
                   <div v-else class="under_item_active" type="button" @click="changeCollect(item)"><img
                     src="@/assets/collect_active.png"
-                  >收藏
+                  >{{ item.collectCount }}
                   </div>
                   <el-divider direction="vertical"/>
-                  <div class="under_item"><img alt="" src="@/assets/repost.png">转发</div>
-                  <el-divider direction="vertical"/>
-                  <div class="under_item"><img alt="" src="@/assets/comment.png">评论</div>
-                  <el-divider direction="vertical"/>
-                  <div v-if="!item.like" class="under_item" @click="changeLike(item)"><img alt=""
-                                                                                           src="@/assets/like.png"
-                  >点赞
-                  </div>
-                  <div v-else class="under_item_active" @click="changeLike(item)"><img src="@/assets/like_active.png">点赞
+                  <div class="under_item"><img alt="" src="@/assets/repost.png"
+                  >{{ item.repostCount == 0 ? '转发' : item.repostCount }}
                   </div>
                   <el-divider direction="vertical"/>
-
+                  <div class="under_item" @click="item.commentShow=!item.commentShow">
+                    <!--                    <img alt="" src="@/assets/comment.png">-->
+                    <span class="el-icon-chat-dot-round"/>
+                    {{ item.commentCount == 0 ? '评论' : item.commentCount }}
+                  </div>
+                  <el-divider direction="vertical"/>
+                  <div v-if="!item.like" class="under_item" @click="changeLike(item)"><img
+                    alt=""
+                    src="@/assets/like.png"
+                  >{{ item.likeCount == 0 ? '赞' : item.likeCount }}
+                  </div>
+                  <div v-else class="under_item_active" @click="changeLike(item)"><img src="@/assets/like_active.png"
+                  >{{ item.likeCount }}
+                  </div>
+                  <el-divider direction="vertical"/>
                 </div>
+                <div v-if="item.commentShow" style="width: 200px;height: 100px;background: #20a0ff;"/>
                 <el-divider><i class="el-icon-c-scale-to-original"/></el-divider>
               </div>
             </div>
@@ -84,7 +92,8 @@ import collect from '@/api/blog/collect'
 export default {
   data() {
     return {
-      blogs: undefined,
+      commentShow: false,
+      blogs: [],
       url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
       count: 10,
       loading: false
@@ -104,6 +113,17 @@ export default {
     this.getBlog()
   },
   methods: {
+    showComment(item) {
+      const indexOf = this.blogs.indexOf(item)
+      console.log(indexOf)
+      if (item.commentShow === undefined) {
+        this.blogs[indexOf].commentShow = true
+        console.log(this.blogs[indexOf].commentShow)
+      } else {
+        this.blogs[indexOf].commentShow = !this.blogs[indexOf].commentShow
+        console.log(this.blogs[indexOf].commentShow)
+      }
+    },
     changeCollect(blog) {
       let id = ''
       if (blog.collect != null) {
@@ -114,8 +134,10 @@ export default {
           const indexOf = this.blogs.indexOf(blog)
           if (res.collectId == null) {
             this.blogs[indexOf].collect = null
+            this.blogs[indexOf].collectCount--
           } else {
             this.blogs[indexOf].collect = res
+            this.blogs[indexOf].collectCount++
           }
         }
       )
@@ -130,8 +152,10 @@ export default {
           const indexOf = this.blogs.indexOf(blog)
           if (res.likeId == null) {
             this.blogs[indexOf].like = null
+            this.blogs[indexOf].likeCount--
           } else {
             this.blogs[indexOf].like = res
+            this.blogs[indexOf].likeCount++
           }
         }
       )
@@ -139,7 +163,18 @@ export default {
     getBlog() {
       Blog.homeLine().then(
         res => {
-          this.blogs = res.content
+          const a = res.content
+          // console.log(a)
+          for (const aElement of a) {
+            aElement.commentShow = false
+            // console.log(aElement)
+            this.blogs.push(aElement)
+          }
+          // console.log(this.blogs)
+          // for (let blog in res.content) {
+          //   blog.commentShow = false
+          //   this.blogs.push(blog)
+          // }
           // console.log(this.blogs)
         }
       )
@@ -258,13 +293,19 @@ export default {
     //float: left;
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 50px;
     cursor: pointer;
+
+    span {
+      margin-right: 2px;
+    }
 
     img {
       //margin: auto;
       height: 14px;
       width: 14px;
+      margin-right: 2px;
     }
   }
 
@@ -272,6 +313,7 @@ export default {
     //float: left;
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 50px;
     color: #20a0ff;
     cursor: pointer;
@@ -279,6 +321,7 @@ export default {
     img {
       height: 14px;
       width: 14px;
+      margin-right: 2px;
     }
   }
 }
