@@ -42,21 +42,6 @@
                     />
                   </div>
                 </div>
-
-                <!--                  <div
-                                      v-for="img in parseImgUrl(item.imgDto.imgUrl)"
-                                      :key="img"
-                                      style="width: 150px;height:150px;margin: 10px"
-                                      :preview-src-list="parseImgUrl(item.imgDto.imgUrl)"
-                                    >
-                                      <el-image
-                                        :src="img"
-                                        fit="cover"
-                                        style="margin: 10px;width:100px;overflow: hidden"
-                                      />
-                                    </div>-->
-
-                <!--                </div>-->
                 <div class="blog_under">
                   <el-divider direction="vertical"/>
 
@@ -95,7 +80,16 @@
                 <!--                <div v-show="item.commentShow" style="width: 200px;height: 100px;background: #20a0ff;" />-->
                 <el-collapse-transition>
                   <div v-show="item.commentShow">
-                    <div style="width: 200px;height: 100px;background: #20a0ff;"/>
+                    <div v-for="comment in item.comments" :key="comment.commentId" class="comment-component">
+                      <div class="comment-avatar">
+                        <el-avatar :src="comment.diaryUserDto.avatarUrl"/>
+                      </div>
+                      <div class="comment-content">
+                        <div class="comment-username">{{ comment.diaryUserDto.name }}</div>
+                        <div class="comment">{{ comment.content }}</div>
+                        <div class="comment-publish-time">{{ timeFormat(comment.publishTime) }}</div>
+                      </div>
+                    </div>
                   </div>
                 </el-collapse-transition>
                 <el-divider><i class="el-icon-c-scale-to-original"/></el-divider>
@@ -146,7 +140,11 @@ export default {
     showComment(item) {
       const indexOf = this.blogs.indexOf(item)
       this.blogs[indexOf].commentShow = !this.blogs[indexOf].commentShow
-      comment.findByBlog(item.blogId, 0, 10)
+      if (this.blogs[indexOf].commentShow) {
+        comment.findByBlog(item.blogId, 0, 10).then(res => {
+          this.blogs[indexOf].comments = res.content
+        })
+      }
     },
     changeCollect(blog) {
       let id = ''
@@ -375,4 +373,36 @@ export default {
   }
 }
 
+.comment-component {
+  display: flex;
+  width: 500px;
+
+  .comment-avatar {
+    height: 40px;
+    width: 40px;
+    margin: 10px
+  }
+
+  .comment-content {
+
+    .comment-username {
+      height: 40px;
+      line-height: 40px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .comment {
+      font-size: 14px;
+      line-height: 20px;
+      //text-indent: 24px;
+    }
+
+    .comment-publish-time {
+      font-size: 9px;
+      line-height: 30px;
+      color: #b3b4b6;
+    }
+  }
+}
 </style>
