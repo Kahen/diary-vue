@@ -27,17 +27,36 @@
                 <div class="text item">
                   {{ item.content }}
                 </div>
-                <div v-if="item.imgDto" style="width: 500px;display: flex;justify-content:left;">
+                <!--                <div  style="width: 500px;display: flex;">-->
 
-                  <el-image
+                <div v-if="item.imgDto" class="blockDiv">
+                  <div
                     v-for="img in parseImgUrl(item.imgDto.imgUrl)"
                     :key="img"
                     :preview-src-list="parseImgUrl(item.imgDto.imgUrl)"
-                    :src="img"
-                    fit="cover"
-                    style="margin: 10px;width:100px;"
-                  />
+                    class="block"
+                  >
+                    <el-image
+                      :src="img"
+                      fit="cover"
+                    />
+                  </div>
                 </div>
+
+                <!--                  <div
+                                      v-for="img in parseImgUrl(item.imgDto.imgUrl)"
+                                      :key="img"
+                                      style="width: 150px;height:150px;margin: 10px"
+                                      :preview-src-list="parseImgUrl(item.imgDto.imgUrl)"
+                                    >
+                                      <el-image
+                                        :src="img"
+                                        fit="cover"
+                                        style="margin: 10px;width:100px;overflow: hidden"
+                                      />
+                                    </div>-->
+
+                <!--                </div>-->
                 <div class="blog_under">
                   <el-divider direction="vertical"/>
 
@@ -56,7 +75,7 @@
                   >{{ item.repostCount == 0 ? '转发' : item.repostCount }}
                   </div>
                   <el-divider direction="vertical"/>
-                  <div class="under_item" @click="item.commentShow=!item.commentShow">
+                  <div class="under_item" @click="showComment(item)">
                     <!--                    <img alt="" src="@/assets/comment.png">-->
                     <span class="el-icon-chat-dot-round"/>
                     {{ item.commentCount == 0 ? '评论' : item.commentCount }}
@@ -96,6 +115,7 @@
 import Blog from '@/api/blog/blog'
 import Like from '@/api/blog/like'
 import collect from '@/api/blog/collect'
+import comment from '@/api/blog/comment'
 
 export default {
   data() {
@@ -104,33 +124,29 @@ export default {
       blogs: [],
       url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
       count: 10,
-      loading: false
+      loading: false,
+      page: 0,
+      final: 2
       // like: true,
       // collect: true
     }
   },
   computed: {
     noMore() {
-      return this.count >= 20
+      return this.blogs.length >= this.final
     },
     disabled() {
       return this.loading || this.noMore
     }
   },
   created() {
-    this.getBlog()
+    this.getBlog(this.page, this.count)
   },
   methods: {
     showComment(item) {
       const indexOf = this.blogs.indexOf(item)
-      console.log(indexOf)
-      if (item.commentShow === undefined) {
-        this.blogs[indexOf].commentShow = true
-        console.log(this.blogs[indexOf].commentShow)
-      } else {
-        this.blogs[indexOf].commentShow = !this.blogs[indexOf].commentShow
-        console.log(this.blogs[indexOf].commentShow)
-      }
+      this.blogs[indexOf].commentShow = !this.blogs[indexOf].commentShow
+      comment.findByBlog(item.blogId, 0, 10)
     },
     changeCollect(blog) {
       let id = ''
@@ -168,12 +184,14 @@ export default {
         }
       )
     },
-    getBlog() {
-      Blog.homeLine().then(
+    getBlog(page, size) {
+      Blog.homeLine(page, size).then(
         res => {
           // console.log(a)
+          this.final = res.totalElements
           for (const aElement of res.content) {
             aElement.commentShow = false
+            aElement.comments = []
             // console.log(aElement)
             this.blogs.push(aElement)
           }
@@ -188,8 +206,9 @@ export default {
     },
     load() {
       this.loading = true
+      this.page++
       setTimeout(() => {
-        this.count += 2
+        this.getBlog(this.page, this.count)
         this.loading = false
       }, 2000)
     },
@@ -331,5 +350,29 @@ export default {
       margin-right: 2px;
     }
   }
+
 }
+
+.blockDiv {
+  width: 420px;
+  display: flex;
+  flex-wrap: wrap;
+
+  .block {
+    width: calc(calc(420px / 3) - 10px);
+    margin: 5px;
+    height: calc(calc(420px / 3) - 10px);
+    box-sizing: border-box;
+    //border:1px  solid #000;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+
+    .el-image {
+      width: 100%;
+    }
+  }
+}
+
 </style>

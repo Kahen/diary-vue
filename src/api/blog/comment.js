@@ -24,4 +24,16 @@ export function edit(data) {
   })
 }
 
-export default { add, edit, del }
+export function findByBlog(blogId, page, size) {
+  return request({
+    url: 'api/comment/' + blogId,
+    method: 'get',
+    params: {
+      page: page,
+      size: size,
+      sort: 'publishTime,desc'
+    }
+  })
+}
+
+export default { add, edit, del, findByBlog }
