@@ -50,7 +50,9 @@
                   >{{ item.collectCount }}
                   </div>
                   <el-divider direction="vertical"/>
-                  <div class="under_item"><img alt="" src="@/assets/repost.png"
+                  <div class="under_item"><img
+                    alt=""
+                    src="@/assets/repost.png"
                   >{{ item.repostCount == 0 ? '转发' : item.repostCount }}
                   </div>
                   <el-divider direction="vertical"/>
@@ -65,12 +67,18 @@
                     src="@/assets/like.png"
                   >{{ item.likeCount == 0 ? '赞' : item.likeCount }}
                   </div>
-                  <div v-else class="under_item_active" @click="changeLike(item)"><img src="@/assets/like_active.png"
+                  <div v-else class="under_item_active" @click="changeLike(item)"><img
+                    src="@/assets/like_active.png"
                   >{{ item.likeCount }}
                   </div>
                   <el-divider direction="vertical"/>
                 </div>
-                <div v-if="item.commentShow" style="width: 200px;height: 100px;background: #20a0ff;"/>
+                <!--                <div v-show="item.commentShow" style="width: 200px;height: 100px;background: #20a0ff;" />-->
+                <el-collapse-transition>
+                  <div v-show="item.commentShow">
+                    <div style="width: 200px;height: 100px;background: #20a0ff;"/>
+                  </div>
+                </el-collapse-transition>
                 <el-divider><i class="el-icon-c-scale-to-original"/></el-divider>
               </div>
             </div>
@@ -163,9 +171,8 @@ export default {
     getBlog() {
       Blog.homeLine().then(
         res => {
-          const a = res.content
           // console.log(a)
-          for (const aElement of a) {
+          for (const aElement of res.content) {
             aElement.commentShow = false
             // console.log(aElement)
             this.blogs.push(aElement)
