@@ -80,6 +80,23 @@
                 <!--                <div v-show="item.commentShow" style="width: 200px;height: 100px;background: #20a0ff;" />-->
                 <el-collapse-transition>
                   <div v-show="item.commentShow">
+                    <div class="comment-input">
+                      <el-avatar :src="url"/>
+                      <el-input
+                        v-model="comment_area"
+                        class="comment-area"
+                        maxlength="200"
+                        placeholder="发条友善的评论"
+                        resize="none"
+                        show-word-limit
+                        size="mini"
+                        type="textarea"
+                      />
+                      <div class="button-component">
+                        <el-button size="mini" type="primary">评论</el-button>
+                      </div>
+                      <el-divider/>
+                    </div>
                     <div v-for="comment in item.comments" :key="comment.commentId" class="comment-component">
                       <div class="comment-avatar">
                         <el-avatar :src="comment.diaryUserDto.avatarUrl"/>
@@ -89,6 +106,10 @@
                         <div class="comment">{{ comment.content }}</div>
                         <div class="comment-publish-time">{{ timeFormat(comment.publishTime) }}</div>
                       </div>
+                    </div>
+                    <div v-if="item.commentCount>item.comments.length" class="load-more-comment" type="text"
+                         @click="loadMoreComment(item)"
+                    >查看更多
                     </div>
                   </div>
                 </el-collapse-transition>
@@ -114,6 +135,7 @@ import comment from '@/api/blog/comment'
 export default {
   data() {
     return {
+      comment_area: '',
       commentShow: false,
       blogs: [],
       url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
@@ -140,11 +162,19 @@ export default {
     showComment(item) {
       const indexOf = this.blogs.indexOf(item)
       this.blogs[indexOf].commentShow = !this.blogs[indexOf].commentShow
+      this.blogs[indexOf].commentPage = 0
       if (this.blogs[indexOf].commentShow) {
-        comment.findByBlog(item.blogId, 0, 10).then(res => {
+        comment.findByBlog(item.blogId, this.blogs[indexOf].commentPage, 10).then(res => {
           this.blogs[indexOf].comments = res.content
         })
       }
+    },
+    loadMoreComment(item) {
+      const indexOf = this.blogs.indexOf(item)
+      this.blogs[indexOf].commentPage++
+      comment.findByBlog(item.blogId, this.blogs[indexOf].commentPage, 10).then(res => {
+        this.blogs[indexOf].comments = this.blogs[indexOf].comments.concat(res.content)
+      })
     },
     changeCollect(blog) {
       let id = ''
@@ -399,10 +429,47 @@ export default {
     }
 
     .comment-publish-time {
-      font-size: 9px;
+      font-size: 6px;
       line-height: 30px;
       color: #b3b4b6;
     }
   }
+}
+
+.comment-input {
+  margin: 10px;
+  //height: 20px;
+  width: 580px;
+  border-radius: 10px;
+  //background: #20a0ff;
+  display: flex;
+  flex-wrap: wrap;
+
+  .el-avatar {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+  }
+
+  .comment-area {
+    width: 520px;
+    margin: 5px;
+  }
+
+  .button-component {
+    width: 100%;
+
+    .el-button {
+      margin: 5px 5px 5px 5px;
+      float: right;
+    }
+  }
+}
+
+.load-more-comment {
+  font-size: 8px;
+  color: #b3b4b6;
+  text-align: center;
+  cursor: pointer;
 }
 </style>
