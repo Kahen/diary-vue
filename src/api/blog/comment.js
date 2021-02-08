@@ -36,4 +36,12 @@ export function findByBlog(blogId, page, size) {
   })
 }
 
-export default { add, edit, del, findByBlog }
+export function addBlogComment(blogId, item) {
+  return request({
+    url: 'api/comment/' + blogId,
+    method: 'post',
+    data: item
+  })
+}
+
+export default { add, edit, del, findByBlog, addBlogComment }

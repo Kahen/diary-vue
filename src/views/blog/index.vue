@@ -33,10 +33,10 @@
                   <div
                     v-for="img in parseImgUrl(item.imgDto.imgUrl)"
                     :key="img"
-                    :preview-src-list="parseImgUrl(item.imgDto.imgUrl)"
                     class="block"
                   >
                     <el-image
+                      :preview-src-list="parseImgUrl(item.imgDto.imgUrl)"
                       :src="img"
                       fit="cover"
                     />
@@ -79,11 +79,11 @@
                 </div>
                 <!--                <div v-show="item.commentShow" style="width: 200px;height: 100px;background: #20a0ff;" />-->
                 <el-collapse-transition>
-                  <div v-show="item.commentShow">
+                  <div v-if="item.commentShow">
                     <div class="comment-input">
                       <el-avatar :src="url"/>
                       <el-input
-                        v-model="comment_area"
+                        v-model="item.commentArea"
                         class="comment-area"
                         maxlength="200"
                         placeholder="发条友善的评论"
@@ -93,7 +93,10 @@
                         type="textarea"
                       />
                       <div class="button-component">
-                        <el-button size="mini" type="primary">评论</el-button>
+                        <el-button :disabled="item.commentArea===''" :plain="true" size="mini" type="primary"
+                                   @click="addBlogComment(item)"
+                        >评论
+                        </el-button>
                       </div>
                       <el-divider/>
                     </div>
@@ -107,9 +110,19 @@
                         <div class="comment-publish-time">{{ timeFormat(comment.publishTime) }}</div>
                       </div>
                     </div>
-                    <div v-if="item.commentCount>item.comments.length" class="load-more-comment" type="text"
-                         @click="loadMoreComment(item)"
+                    <div
+                      v-if="item.commentCount>item.comments.length"
+                      class="load-more-comment"
+                      type="text"
+                      @click="loadMoreComment(item)"
                     >查看更多
+                    </div>
+                    <div
+                      v-else
+                      class="load-more-comment"
+                      type="text"
+                      @click="item.commentShow=false"
+                    >收起
                     </div>
                   </div>
                 </el-collapse-transition>
@@ -135,7 +148,7 @@ import comment from '@/api/blog/comment'
 export default {
   data() {
     return {
-      comment_area: '',
+      // comment_area: '',
       commentShow: false,
       blogs: [],
       url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
@@ -159,6 +172,25 @@ export default {
     this.getBlog(this.page, this.count)
   },
   methods: {
+    addBlogComment(item) {
+      if (item.commentArea === '') {
+        this.$message('不能请输入评论')
+        return
+      }
+      comment.addBlogComment(item.blogId, item).then(res => {
+        const indexOf = this.blogs.indexOf(item)
+        console.log(res)
+        if (res != null) {
+          // this.blogs[indexOf].comments.push(res)
+          this.blogs[indexOf].commentCount++
+          this.blogs[indexOf].commentArea = ''
+          this.blogs[indexOf].comments.unshift(res)
+        }
+        // this.blogs[indexOf].comments =
+        // this.blogs[indexOf].commentCount =
+        // this.showComment(item)
+      })
+    },
     showComment(item) {
       const indexOf = this.blogs.indexOf(item)
       this.blogs[indexOf].commentShow = !this.blogs[indexOf].commentShow
@@ -220,6 +252,7 @@ export default {
           for (const aElement of res.content) {
             aElement.commentShow = false
             aElement.comments = []
+            aElement.commentArea = ''
             // console.log(aElement)
             this.blogs.push(aElement)
           }
