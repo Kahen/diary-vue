@@ -93,8 +93,12 @@
                         type="textarea"
                       />
                       <div class="button-component">
-                        <el-button :disabled="item.commentArea===''" :plain="true" size="mini" type="primary"
-                                   @click="addBlogComment(item)"
+                        <el-button
+                          :disabled="item.commentArea===''"
+                          :plain="true"
+                          size="mini"
+                          type="primary"
+                          @click="addBlogComment(item)"
                         >评论
                         </el-button>
                       </div>
@@ -262,6 +266,7 @@ export default {
           //   this.blogs.push(blog)
           // }
           // console.log(this.blogs)
+          console.log(this.blogs)
         }
       )
     },
