@@ -184,8 +184,8 @@ export default {
       count: 0,
       firstSend: 0,
       registerFormData: {
-        email: 'kahenlee@163.com',
-        nickname: 'Kahen',
+        email: '',
+        nickname: '',
         password: '',
         password_again: '',
         activeCode: ''

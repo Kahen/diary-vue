@@ -36,8 +36,8 @@
                     class="block"
                   >
                     <el-image
-                      :preview-src-list="parseImgUrl(item.imgDto.imgUrl)"
-                      :src="img"
+                      :preview-src-list="convertToPreviewSrc(item.imgDto.imgUrl)"
+                      :src="baseApi + '/file/' + '图片' + '/' + img"
                       fit="cover"
                     />
                   </div>
@@ -148,11 +148,11 @@ import Blog from '@/api/blog/blog'
 import Like from '@/api/blog/like'
 import collect from '@/api/blog/collect'
 import comment from '@/api/blog/comment'
+import { mapGetters } from 'vuex'
 
 export default {
   data() {
     return {
-      // comment_area: '',
       commentShow: false,
       blogs: [],
       url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
@@ -160,8 +160,6 @@ export default {
       loading: false,
       page: 0,
       final: 2
-      // like: true,
-      // collect: true
     }
   },
   computed: {
@@ -170,7 +168,12 @@ export default {
     },
     disabled() {
       return this.loading || this.noMore
-    }
+    },
+    ...mapGetters([
+      'baseApi',
+      'fileUploadApi',
+      'imagesUploadApi'
+    ])
   },
   created() {
     this.getBlog(this.page, this.count)
@@ -185,14 +188,10 @@ export default {
         const indexOf = this.blogs.indexOf(item)
         console.log(res)
         if (res != null) {
-          // this.blogs[indexOf].comments.push(res)
           this.blogs[indexOf].commentCount++
           this.blogs[indexOf].commentArea = ''
           this.blogs[indexOf].comments.unshift(res)
         }
-        // this.blogs[indexOf].comments =
-        // this.blogs[indexOf].commentCount =
-        // this.showComment(item)
       })
     },
     showComment(item) {
@@ -251,7 +250,6 @@ export default {
     getBlog(page, size) {
       Blog.homeLine(page, size).then(
         res => {
-          // console.log(a)
           this.final = res.totalElements
           for (const aElement of res.content) {
             aElement.commentShow = false
@@ -260,13 +258,6 @@ export default {
             // console.log(aElement)
             this.blogs.push(aElement)
           }
-          // console.log(this.blogs)
-          // for (let blog in res.content) {
-          //   blog.commentShow = false
-          //   this.blogs.push(blog)
-          // }
-          // console.log(this.blogs)
-          console.log(this.blogs)
         }
       )
     },
@@ -320,6 +311,14 @@ export default {
     },
     parseImgUrl(imgUrls) {
       return JSON.parse(imgUrls)
+    },
+    convertToPreviewSrc(imgUrls) {
+      const parse = JSON.parse(imgUrls)
+      const result = []
+      for (const datum in parse) {
+        result.push(this.baseApi + '/file/' + '图片' + '/' + parse[datum])
+      }
+      return result
     }
 
   }
